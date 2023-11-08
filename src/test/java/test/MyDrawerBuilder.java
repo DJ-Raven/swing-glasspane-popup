@@ -34,6 +34,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 "forms.svg",
                 "chart.svg",
                 "icon.svg",
+                "page.svg",
         };
         return new SimpleMenuOption()
                 .setMenus(menus)

@@ -13,6 +13,7 @@ public class Demo extends JFrame {
     public Demo() {
         GlassPanePopup.install(this);
         Drawer.getInstance().setDrawerBuilder(new MyDrawerBuilder());
+        setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
