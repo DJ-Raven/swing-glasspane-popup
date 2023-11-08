@@ -26,7 +26,15 @@ GlassPanePopup.showPopup(new SimplePopupBorder(component, "Sample Message", acti
     }
 }));
 ```
-### SimplePopupBorder
+
+#### Push and Pop with `name`
+``` java
+GlassPanePopup.push(childComponent, "popupname");
+
+GlassPanePopup.pop("popupname");
+```
+
+#### SimplePopupBorder
 
 ``` java
 public SimplePopupBorder(Component component,
