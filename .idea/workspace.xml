@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
@@ -20,6 +21,15 @@
       <change afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/DrawerEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DefaultMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/MenuAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
+>>>>>>> 33672ae333a3ad040e2e3948ce4ecfa2966053d2
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +77,11 @@
       <recent name="D:\Raven\glasspane\swing-glasspane-popup\src\main\resources\raven\popup\icon" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Unnamed">
+=======
+  <component name="RunManager">
+>>>>>>> 33672ae333a3ad040e2e3948ce4ecfa2966053d2
     <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="test.Demo" />
       <module name="swing-glasspane-popup" />
@@ -81,6 +95,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="test.Demo" />
       <module name="swing-glasspane-popup" />
@@ -92,6 +107,8 @@
       <item itemvalue="Application.Unnamed" />
       <item itemvalue="Application.Demo" />
     </list>
+=======
+>>>>>>> 33672ae333a3ad040e2e3948ce4ecfa2966053d2
     <recent_temporary>
       <list>
         <item itemvalue="Application.Demo" />
