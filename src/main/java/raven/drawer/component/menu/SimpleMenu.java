@@ -154,9 +154,11 @@ public class SimpleMenu extends JPanel {
                         iconWidth = UIScale.unscale(button.getIcon().getIconWidth());
                     }
                     createMainMenuEvent(button);
+                    applyMenuEvent(button, this.index, index);
                     add(button);
                 } else {
                     JButton button = createSubMenuItem(menu[index], index, iconWidth);
+                    applyMenuEvent(button, this.index, index);
                     add(button);
                 }
             }

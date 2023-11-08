@@ -1,29 +1,32 @@
-package raven.drawer.component.menu;
+package raven.drawer.component;
 
-import raven.drawer.component.DefaultHeader;
+import raven.drawer.component.footer.SimpleFooter;
+import raven.drawer.component.header.SimpleHeader;
 import raven.drawer.component.DrawerBuilder;
+import raven.drawer.component.menu.SimpleMenu;
+import raven.drawer.component.menu.SimpleMenuOption;
 
 import javax.swing.*;
 import java.awt.*;
 
 public abstract class SimpleDrawerBuilder implements DrawerBuilder {
 
-    private DefaultHeader defaultHeader;
+    private SimpleHeader simpleHeader;
     private JSeparator headerSeparator;
     private SimpleMenu menu;
-    private JLabel footer;
+    private SimpleFooter footer;
 
 
     public SimpleDrawerBuilder() {
-        defaultHeader = new DefaultHeader();
+        simpleHeader = new SimpleHeader();
         headerSeparator = new JSeparator();
         menu = new SimpleMenu(getSimpleMenuOption());
-        footer = new JLabel("Test Version");
+        footer = new SimpleFooter();
     }
 
     @Override
     public Component getHeader() {
-        return defaultHeader;
+        return simpleHeader;
     }
 
     @Override

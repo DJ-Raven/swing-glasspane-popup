@@ -2,7 +2,7 @@ package test;
 
 import raven.drawer.component.menu.MenuAction;
 import raven.drawer.component.menu.MenuEvent;
-import raven.drawer.component.menu.SimpleDrawerBuilder;
+import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.menu.SimpleMenuOption;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
