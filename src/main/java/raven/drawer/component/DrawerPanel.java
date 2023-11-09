@@ -9,8 +9,7 @@ import java.awt.*;
 
 public class DrawerPanel extends GlassPaneChild {
 
-    private DrawerBuilder drawerBuilder;
-
+    private final DrawerBuilder drawerBuilder;
 
     public DrawerPanel(DrawerBuilder drawerBuilder) {
         this.drawerBuilder = drawerBuilder;
@@ -40,19 +39,27 @@ public class DrawerPanel extends GlassPaneChild {
 
     protected JScrollPane createScroll(Component component) {
         JScrollPane scroll = new JScrollPane(component);
+        scroll.putClientProperty(FlatClientProperties.STYLE, "" +
+                "background:null");
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
                 "width:6;" +
                 "trackArc:999;" +
                 "thumbInsets:0,0,0,3;" +
-                "trackInsets:0,0,0,3;");
+                "trackInsets:0,0,0,3;" +
+                "background:null");
         scroll.getHorizontalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
                 "width:6;" +
                 "trackArc:999;" +
                 "thumbInsets:0,0,0,3;" +
-                "trackInsets:0,0,0,3;");
+                "trackInsets:0,0,0,3;" +
+                "background:null");
         scroll.setBorder(BorderFactory.createEmptyBorder());
         return scroll;
+    }
+
+    public DrawerBuilder getDrawerBuilder() {
+        return drawerBuilder;
     }
 }

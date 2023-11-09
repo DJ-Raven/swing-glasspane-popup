@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="" />
+    <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/footer/SimpleFooterData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeaderData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuValidation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/SimpleDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/SimpleDrawerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/footer/SimpleFooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/footer/SimpleFooter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenuOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenuOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/swing/AvatarIcon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/swing/AvatarIcon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,16 +53,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Raven/glasspane/swing-glasspane-popup/src/main/java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/test/resources/image"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\test\resources\image" />
       <recent name="D:\Raven\glasspane\swing-glasspane-popup\src\main\java" />
       <recent name="D:\Raven\glasspane\swing-glasspane-popup\src\main\resources\raven\popup\icon" />
     </key>
@@ -79,6 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1699451402566</updated>
+      <workItem from="1699505613958" duration="4444000" />
     </task>
     <servers />
   </component>

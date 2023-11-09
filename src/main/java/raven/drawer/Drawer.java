@@ -27,6 +27,7 @@ public class Drawer {
 
     public void setDrawerBuilder(DrawerBuilder drawerBuilder) {
         drawerPanel = new DrawerPanel(drawerBuilder);
+        drawerBuilder.build(drawerPanel);
     }
 
     public void showDrawer() {
@@ -38,5 +39,9 @@ public class Drawer {
 
     public void closeDrawer() {
         GlassPanePopup.closePopup("drawer");
+    }
+
+    public DrawerPanel getDrawerPanel() {
+        return drawerPanel;
     }
 }

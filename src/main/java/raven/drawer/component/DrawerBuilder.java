@@ -4,6 +4,8 @@ import java.awt.*;
 
 public interface DrawerBuilder {
 
+    public void build(DrawerPanel drawerPanel);
+
     public Component getHeader();
 
     public Component getHeaderSeparator();
