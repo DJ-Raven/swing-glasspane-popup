@@ -2,7 +2,6 @@ package raven.drawer.component;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
-import raven.drawer.DrawerEvent;
 import raven.popup.component.GlassPaneChild;
 
 import javax.swing.*;
@@ -10,25 +9,37 @@ import java.awt.*;
 
 public class DrawerPanel extends GlassPaneChild {
 
-    private Component drawerHeader;
-    private Component headerSeparator;
-    private Component drawerMenu;
-    private DrawerEvent event;
+    private DrawerBuilder drawerBuilder;
 
-    public DrawerPanel(DrawerEvent event) {
-        this.event = event;
+
+    public DrawerPanel(DrawerBuilder drawerBuilder) {
+        this.drawerBuilder = drawerBuilder;
         init();
     }
 
     private void init() {
-        drawerHeader = new DefaultHeader();
-        drawerMenu = new DefaultMenu();
-        headerSeparator = new JSeparator();
-        setLayout(new MigLayout("wrap,insets 0,fill", "fill","[grow 0][grow 0][fill][grow 0]"));
+        String layoutRow = "";
+        if (drawerBuilder.getHeader() != null) {
+            layoutRow = "[grow 0]";
+            add(drawerBuilder.getHeader());
+        }
+        if (drawerBuilder.getHeaderSeparator() != null) {
+            layoutRow += "[grow 0]";
+            add(drawerBuilder.getHeaderSeparator());
+        }
+        if (drawerBuilder.getMenu() != null) {
+            layoutRow += "[fill]";
+            add(createScroll(drawerBuilder.getMenu()));
+        }
+        if (drawerBuilder.getFooter() != null) {
+            layoutRow += "[grow 0]";
+            add(drawerBuilder.getFooter());
+        }
+        setLayout(new MigLayout("wrap,insets 0,fill", "fill", layoutRow));
+    }
 
-        add(drawerHeader);
-        add(headerSeparator);
-        JScrollPane scroll = new JScrollPane(drawerMenu);
+    protected JScrollPane createScroll(Component component) {
+        JScrollPane scroll = new JScrollPane(component);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
@@ -42,6 +53,6 @@ public class DrawerPanel extends GlassPaneChild {
                 "thumbInsets:0,0,0,3;" +
                 "trackInsets:0,0,0,3;");
         scroll.setBorder(BorderFactory.createEmptyBorder());
-        add(scroll);
+        return scroll;
     }
 }

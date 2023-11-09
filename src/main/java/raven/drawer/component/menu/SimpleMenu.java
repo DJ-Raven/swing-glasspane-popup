@@ -1,4 +1,4 @@
-package raven.drawer.component;
+package raven.drawer.component.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.ui.FlatUIUtils;
@@ -9,48 +9,38 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
 
-public class DefaultMenu extends JPanel {
+public class SimpleMenu extends JPanel {
 
-    private String menus[][] = {
-            {"~MAIN~"},
-            {"Dashboard"},
-            {"~WEB APP~"},
-            {"Email", "Inbox", "Read", "Compost"},
-            {"Chat"},
-            {"Calendar"},
-            {"~COMPONENT~"},
-            {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-            {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-            {"~OTHER~"},
-            {"Charts", "Apex", "Flot", "Sparkline"},
-            {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-            {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
-            {"Logout"}
-    };
+    private final SimpleMenuOption simpleMenuOption;
 
     private MigLayout menuLayout;
 
-    public DefaultMenu() {
+    public SimpleMenu(SimpleMenuOption simpleMenuOption) {
+        this.simpleMenuOption = simpleMenuOption;
+        System.out.println("Menu ++ "+simpleMenuOption.icons);
         init();
     }
 
     private void init() {
         menuLayout = new MigLayout("wrap,insets 0,fillx,gap 0", "[fill]");
         setLayout(menuLayout);
-
-        for (int i = 0; i < menus.length; i++) {
-            final int index = i;
-            String menu[] = menus[index];
-            if (menu.length > 0) {
-                String label = checkLabel(menu);
-                if (label != null) {
-                    add(createLabel(label, index));
-                } else {
-                    if (menu.length == 1) {
-                        JButton button = createMenuItem(menu[0], index);
-                        add(button);
+        String menus[][] = simpleMenuOption.menus;
+        System.out.println(menus);
+        if (menus != null) {
+            for (int i = 0; i < menus.length; i++) {
+                final int index = i;
+                String menu[] = menus[index];
+                if (menu.length > 0) {
+                    String label = checkLabel(menu);
+                    if (label != null) {
+                        add(createLabel(label, index));
                     } else {
-                        add(createSubmenuItem(menu, index));
+                        if (menu.length == 1) {
+                            JButton button = createMenuItem(menu[0], index);
+                            add(button);
+                        } else {
+                            add(createSubmenuItem(menu, index));
+                        }
                     }
                 }
             }

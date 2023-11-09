@@ -1,5 +1,6 @@
 package raven.drawer;
 
+import raven.drawer.component.DrawerBuilder;
 import raven.drawer.component.DrawerPanel;
 import raven.popup.GlassPanePopup;
 
@@ -16,24 +17,22 @@ public class Drawer {
         return instance;
     }
 
+    public static Drawer newInstance() {
+        return new Drawer();
+    }
+
     private Drawer() {
-        drawerPanel = new DrawerPanel(getEvent());
         option = new DrawerOption();
     }
 
-    private DrawerEvent getEvent() {
-        return new DrawerEvent() {
-            @Override
-            public void selected(int index) {
-                if (index == 1) {
-                    closeDrawer();
-
-                }
-            }
-        };
+    public void setDrawerBuilder(DrawerBuilder drawerBuilder) {
+        drawerPanel = new DrawerPanel(drawerBuilder);
     }
 
     public void showDrawer() {
+        if (drawerPanel == null) {
+            throw new NullPointerException("Drawer builder has not initialize");
+        }
         GlassPanePopup.showPopup(drawerPanel, option, "drawer");
     }
 

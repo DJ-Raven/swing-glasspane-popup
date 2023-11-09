@@ -1,13 +1,13 @@
-package raven.drawer.component;
+package raven.drawer.component.menu;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;
 
 public class MenuAnimation {
 
-    private final DefaultMenu.SubMenuItem subMenuItem;
+    private final SimpleMenu.SubMenuItem subMenuItem;
 
-    public MenuAnimation( DefaultMenu.SubMenuItem subMenuItem) {
+    public MenuAnimation( SimpleMenu.SubMenuItem subMenuItem) {
         this.subMenuItem = subMenuItem;
     }
 
