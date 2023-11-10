@@ -5,25 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuLayout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/calendar.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/chart.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/chat.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/dashboard.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/email.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/forms.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/logout.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/page.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/icon/ui.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DefaultHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/SimpleDrawerBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenuOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenuOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/header/SimpleHeader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

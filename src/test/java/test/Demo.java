@@ -29,7 +29,7 @@ public class Demo extends JFrame {
     public static void main(String[] args) {
         FlatRobotoFont.install();
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        FlatMacLightLaf.setup();
+        FlatMacDarkLaf.setup();
         EventQueue.invokeLater(() -> new Demo().setVisible(true));
     }
 }

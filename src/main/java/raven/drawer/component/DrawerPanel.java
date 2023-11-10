@@ -24,7 +24,7 @@ public class DrawerPanel extends GlassPaneChild {
             add(drawerBuilder.getHeader());
         }
         if (drawerBuilder.getHeaderSeparator() != null) {
-            layoutRow += "[grow 0]";
+            layoutRow += "[grow 0,2::]";
             add(drawerBuilder.getHeaderSeparator());
         }
         if (drawerBuilder.getMenu() != null) {
