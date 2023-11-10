@@ -13,7 +13,11 @@ public class MenuAction {
         consume = true;
     }
 
-    private void selected() {
+    protected boolean getSelected() {
+        return selected;
+    }
+
+    public void selected() {
         selected = true;
     }
 }

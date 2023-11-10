@@ -1,12 +1,10 @@
 package test;
 
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import net.miginfocom.swing.MigLayout;
 import raven.drawer.Drawer;
-import raven.drawer.component.DrawerPanel;
-import raven.drawer.component.menu.SimpleDrawerBuilder;
-import raven.drawer.component.menu.SimpleMenuOption;
 import raven.popup.GlassPanePopup;
 
 import javax.swing.*;
@@ -16,8 +14,9 @@ public class Demo extends JFrame {
     public Demo() {
         GlassPanePopup.install(this);
         Drawer.getInstance().setDrawerBuilder(new MyDrawerBuilder());
+        setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(800, 600));
+        setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
         setLayout(new MigLayout("center"));
         JButton cmd = new JButton("Show Drawer");

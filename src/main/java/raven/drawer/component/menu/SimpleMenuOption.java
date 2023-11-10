@@ -1,5 +1,8 @@
 package raven.drawer.component.menu;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +30,12 @@ public class SimpleMenuOption {
         return this;
     }
 
-    public SimpleMenuOption setMenuItemAutoSelect(String baseIconPath) {
+    public SimpleMenuOption setBaseIconPath(String baseIconPath) {
         this.baseIconPath = baseIconPath;
         return this;
     }
 
-    public SimpleMenuOption setBaseIconPath(boolean menuItemAutoSelect) {
+    public SimpleMenuOption setMenuItemAutoSelect(boolean menuItemAutoSelect) {
         this.menuItemAutoSelect = menuItemAutoSelect;
         return this;
     }
@@ -40,5 +43,10 @@ public class SimpleMenuOption {
     public SimpleMenuOption addMenuEvent(MenuEvent event) {
         events.add(event);
         return this;
+    }
+
+    public Icon buildMenuIcon(String path, float scale) {
+        FlatSVGIcon icon = new FlatSVGIcon(path, scale);
+        return icon;
     }
 }

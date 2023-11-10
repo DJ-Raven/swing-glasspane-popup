@@ -1,6 +1,8 @@
 package test;
 
-import raven.drawer.component.menu.SimpleDrawerBuilder;
+import raven.drawer.component.menu.MenuAction;
+import raven.drawer.component.menu.MenuEvent;
+import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.menu.SimpleMenuOption;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
@@ -13,7 +15,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 {"Dashboard"},
                 {"~WEB APP~"},
                 {"Email", "Inbox", "Read", "Compost"},
-                {"Chat"},
+                {"Email"},
                 {"Calendar"},
                 {"~COMPONENT~"},
                 {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
@@ -22,12 +24,28 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 {"Charts", "Apex", "Flot", "Sparkline"},
                 {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
                 {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
-                {"Logout"}
         };
         String icons[] = {
-                "1.svg",
-                ""
+                "dashboard.svg",
+                "email.svg",
+                "chat.svg",
+                "calendar.svg",
+                "ui.svg",
+                "forms.svg",
+                "chart.svg",
+                "icon.svg",
+                "page.svg",
         };
-        return new SimpleMenuOption().setMenus(menus).setIcons(icons);
+        return new SimpleMenuOption()
+                .setMenus(menus)
+                .setIcons(icons)
+                .setBaseIconPath("icon")
+                .setIconScale(0.45f)
+                .addMenuEvent(new MenuEvent() {
+                    @Override
+                    public void selected(MenuAction action, int index, int subIndex) {
+                        System.out.println("Drawer menu selected " + index + " " + subIndex);
+                    }
+                });
     }
 }

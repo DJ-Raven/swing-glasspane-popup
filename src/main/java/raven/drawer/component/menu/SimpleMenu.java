@@ -1,9 +1,10 @@
 package raven.drawer.component.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.ui.FlatUIUtils;
+import com.formdev.flatlaf.util.ColorFunctions;
 import com.formdev.flatlaf.util.UIScale;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,30 +14,28 @@ public class SimpleMenu extends JPanel {
 
     private final SimpleMenuOption simpleMenuOption;
 
-    private MigLayout menuLayout;
 
     public SimpleMenu(SimpleMenuOption simpleMenuOption) {
         this.simpleMenuOption = simpleMenuOption;
-        System.out.println("Menu ++ "+simpleMenuOption.icons);
         init();
     }
 
     private void init() {
-        menuLayout = new MigLayout("wrap,insets 0,fillx,gap 0", "[fill]");
-        setLayout(menuLayout);
+        setLayout(new MenuLayout());
         String menus[][] = simpleMenuOption.menus;
-        System.out.println(menus);
         if (menus != null) {
+            int index = -1;
             for (int i = 0; i < menus.length; i++) {
-                final int index = i;
-                String menu[] = menus[index];
+                String menu[] = menus[i];
                 if (menu.length > 0) {
                     String label = checkLabel(menu);
                     if (label != null) {
-                        add(createLabel(label, index));
+                        add(createLabel(label));
                     } else {
+                        index++;
                         if (menu.length == 1) {
                             JButton button = createMenuItem(menu[0], index);
+                            applyMenuEvent(button, index, 0);
                             add(button);
                         } else {
                             add(createSubmenuItem(menu, index));
@@ -47,18 +46,59 @@ public class SimpleMenu extends JPanel {
         }
     }
 
+    private String getBasePath() {
+        if (simpleMenuOption.baseIconPath == null) {
+            return "";
+        }
+        if (simpleMenuOption.baseIconPath.equals("/")) {
+            return simpleMenuOption.baseIconPath;
+        } else {
+            return simpleMenuOption.baseIconPath + "/";
+        }
+    }
+
     protected JButton createMenuItem(String name, int index) {
         JButton button = new JButton(name);
+        if (index < simpleMenuOption.icons.length) {
+            String path = getBasePath();
+            Icon icon = simpleMenuOption.buildMenuIcon(path + simpleMenuOption.icons[index], simpleMenuOption.iconScale);
+            if (icon != null) {
+                button.setIcon(icon);
+            }
+        }
         button.setHorizontalAlignment(JButton.LEADING);
         button.putClientProperty(FlatClientProperties.STYLE, "" +
                 "arc:0;" +
-                "margin:8,20,8,20;" +
+                "margin:6,20,6,20;" +
                 "borderWidth:0;" +
                 "focusWidth:0;" +
                 "innerFocusWidth:0;" +
                 "background:null;" +
-                "iconTextGap:15");
+                "iconTextGap:5");
         return button;
+    }
+
+    protected void applyMenuEvent(JButton button, int index, int subIndex) {
+        button.addActionListener(e -> {
+            MenuAction action = runEvent(index, subIndex);
+            if (action != null) {
+                //  Next update on action menu selected
+            }
+        });
+    }
+
+    private MenuAction runEvent(int index, int subIndex) {
+        if (!simpleMenuOption.events.isEmpty()) {
+            MenuAction action = new MenuAction();
+            if (simpleMenuOption.menuItemAutoSelect) {
+                action.selected();
+            }
+            for (MenuEvent event : simpleMenuOption.events) {
+                event.selected(action, index, subIndex);
+            }
+            return action;
+        }
+        return null;
     }
 
     protected Component createSubmenuItem(String menu[], int index) {
@@ -75,7 +115,7 @@ public class SimpleMenu extends JPanel {
         }
     }
 
-    protected Component createLabel(String name, int index) {
+    protected Component createLabel(String name) {
         JLabel label = new JLabel(name);
         label.putClientProperty(FlatClientProperties.STYLE, "" +
                 "border:8,10,8,10;" +
@@ -90,6 +130,7 @@ public class SimpleMenu extends JPanel {
         private boolean menuShow;
         private final String menu[];
         private final int index;
+        private int iconWidth;
 
         public void setAnimate(float animate) {
             menuLayout.setAnimate(animate);
@@ -104,14 +145,20 @@ public class SimpleMenu extends JPanel {
         private void init() {
             menuLayout = new SubmenuLayout();
             setLayout(menuLayout);
+            iconWidth = 22;
             for (int i = 0; i < menu.length; i++) {
                 final int index = i;
                 if (i == 0) {
-                    JButton button = createMenuItem(menu[index], index);
+                    JButton button = createMenuItem(menu[index], this.index);
+                    if (button.getIcon() != null) {
+                        iconWidth = UIScale.unscale(button.getIcon().getIconWidth());
+                    }
                     createMainMenuEvent(button);
+                    applyMenuEvent(button, this.index, index);
                     add(button);
                 } else {
-                    JButton button = createSubMenuItem(menu[index], index);
+                    JButton button = createSubMenuItem(menu[index], index, iconWidth);
+                    applyMenuEvent(button, this.index, index);
                     add(button);
                 }
             }
@@ -125,12 +172,12 @@ public class SimpleMenu extends JPanel {
         }
 
 
-        protected JButton createSubMenuItem(String name, int index) {
+        protected JButton createSubMenuItem(String name, int index, int gap) {
             JButton button = new JButton(name);
             button.setHorizontalAlignment(JButton.LEADING);
             button.putClientProperty(FlatClientProperties.STYLE, "" +
                     "arc:0;" +
-                    "margin:7,30,7,20;" +
+                    "margin:7," + (gap + 25) + ",7,20;" +
                     "borderWidth:0;" +
                     "focusWidth:0;" +
                     "innerFocusWidth:0;" +
@@ -150,7 +197,7 @@ public class SimpleMenu extends JPanel {
                 //  Create submenu line
                 int last = getLastLocation();
                 int round = UIScale.scale(8);
-                int gap = UIScale.scale(20);
+                int gap = UIScale.scale(20 + (iconWidth / 2));
                 Path2D.Double p = new Path2D.Double();
                 int x = gap;
                 p.moveTo(x, menuHeight);
@@ -161,7 +208,8 @@ public class SimpleMenu extends JPanel {
                     int y = com.getY() + (com.getHeight() / 2);
                     p.append(createCurve(round, x, y, true), false);
                 }
-                g2.setColor(UIManager.getColor("Component.borderColor"));
+                Color color = FlatLaf.isLafDark() ? ColorFunctions.darken(getForeground(), 0.6f) : ColorFunctions.lighten(getForeground(), 0.6f);
+                g2.setColor(color);
                 g2.setStroke(new BasicStroke(UIScale.scale(1f)));
                 g2.draw(p);
 
@@ -213,12 +261,10 @@ public class SimpleMenu extends JPanel {
 
             @Override
             public void addLayoutComponent(String name, Component comp) {
-
             }
 
             @Override
             public void removeLayoutComponent(Component comp) {
-
             }
 
             @Override
