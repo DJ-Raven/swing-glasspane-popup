@@ -9,6 +9,7 @@ import java.util.List;
 public class SimpleMenuOption {
 
     protected List<MenuEvent> events = new ArrayList<>();
+    protected MenuValidation menuValidation = new MenuValidation();
     protected String menus[][];
     protected String icons[];
     protected float iconScale = 1f;
@@ -37,6 +38,11 @@ public class SimpleMenuOption {
 
     public SimpleMenuOption setMenuItemAutoSelect(boolean menuItemAutoSelect) {
         this.menuItemAutoSelect = menuItemAutoSelect;
+        return this;
+    }
+
+    public SimpleMenuOption setMenuValidation(MenuValidation menuValidation) {
+        this.menuValidation = menuValidation;
         return this;
     }
 

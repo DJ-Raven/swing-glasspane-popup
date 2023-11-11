@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class SimpleHeader extends JPanel {
 
-    private final SimpleHeaderData simpleHeaderData;
+    private SimpleHeaderData simpleHeaderData;
 
     public SimpleHeader(SimpleHeaderData simpleHeaderData) {
         this.simpleHeaderData = simpleHeaderData;
@@ -16,10 +16,10 @@ public class SimpleHeader extends JPanel {
     }
 
     private void init() {
-        setLayout(new MigLayout("wrap,insets 3 10 3 10,fill,gap 3"));
+        setLayout(new MigLayout("wrap,insets 10 20 5 20,fill,gap 3"));
 
         profile = new JLabel(simpleHeaderData.icon);
-        profile.putClientProperty(FlatClientProperties.STYLE,"" +
+        profile.putClientProperty(FlatClientProperties.STYLE, "" +
                 "background:$Component.borderColor");
         labelTitle = new JLabel(simpleHeaderData.title);
         labelDescription = new JLabel(simpleHeaderData.description);
@@ -30,6 +30,17 @@ public class SimpleHeader extends JPanel {
         add(profile);
         add(labelTitle);
         add(labelDescription);
+    }
+
+    public SimpleHeaderData getSimpleHeaderData() {
+        return simpleHeaderData;
+    }
+
+    public void setSimpleHeaderData(SimpleHeaderData simpleHeaderData) {
+        this.simpleHeaderData = simpleHeaderData;
+        profile.setIcon(simpleHeaderData.icon);
+        labelTitle.setText(simpleHeaderData.title);
+        labelDescription.setText(simpleHeaderData.description);
     }
 
     private JLabel profile;

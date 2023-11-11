@@ -14,7 +14,6 @@ public class SimpleMenu extends JPanel {
 
     private final SimpleMenuOption simpleMenuOption;
 
-
     public SimpleMenu(SimpleMenuOption simpleMenuOption) {
         this.simpleMenuOption = simpleMenuOption;
         init();
@@ -24,21 +23,29 @@ public class SimpleMenu extends JPanel {
         setLayout(new MenuLayout());
         String menus[][] = simpleMenuOption.menus;
         if (menus != null) {
-            int index = -1;
+            int index = 0;
+            int validationIndex = -1;
             for (int i = 0; i < menus.length; i++) {
                 String menu[] = menus[i];
                 if (menu.length > 0) {
                     String label = checkLabel(menu);
                     if (label != null) {
-                        add(createLabel(label));
+                        if (checkLabelValidation(i, index)) {
+                            add(createLabel(label));
+                        }
                     } else {
-                        index++;
-                        if (menu.length == 1) {
-                            JButton button = createMenuItem(menu[0], index);
-                            applyMenuEvent(button, index, 0);
-                            add(button);
-                        } else {
-                            add(createSubmenuItem(menu, index));
+                        boolean validation = simpleMenuOption.menuValidation.menuValidation(++validationIndex, 0);
+                        if (validation) {
+                            if (menu.length == 1) {
+                                JButton button = createMenuItem(menu[0], index);
+                                applyMenuEvent(button, index, 0);
+                                add(button);
+                            } else {
+                                add(createSubmenuItem(menu, index, validationIndex));
+                            }
+                        }
+                        if (validation || simpleMenuOption.menuValidation.keepMenuValidationIndex) {
+                            index++;
                         }
                     }
                 }
@@ -101,8 +108,8 @@ public class SimpleMenu extends JPanel {
         return null;
     }
 
-    protected Component createSubmenuItem(String menu[], int index) {
-        JPanel panelItem = new SubMenuItem(menu, index);
+    protected Component createSubmenuItem(String menu[], int index, int validationIndex) {
+        JPanel panelItem = new SubMenuItem(menu, index, validationIndex);
         return panelItem;
     }
 
@@ -115,6 +122,31 @@ public class SimpleMenu extends JPanel {
         }
     }
 
+    protected boolean checkLabelValidation(int labelIndex, int menuIndex) {
+        if (simpleMenuOption.menuValidation.labelValidation(labelIndex)) {
+            if (simpleMenuOption.menuValidation.removeLabelWhenEmptyMenu) {
+                boolean fondMenu = false;
+                for (int i = labelIndex + 1; i < simpleMenuOption.menus.length; i++) {
+                    String label = checkLabel(simpleMenuOption.menus[i]);
+                    if (label == null) {
+                        if (simpleMenuOption.menuValidation.menuValidation(menuIndex, 0)) {
+                            fondMenu = true;
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                    menuIndex++;
+                }
+                return fondMenu;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
     protected Component createLabel(String name) {
         JLabel label = new JLabel(name);
         label.putClientProperty(FlatClientProperties.STYLE, "" +
@@ -124,21 +156,27 @@ public class SimpleMenu extends JPanel {
         return label;
     }
 
+    public SimpleMenuOption getSimpleMenuOption() {
+        return simpleMenuOption;
+    }
+
     protected class SubMenuItem extends JPanel {
 
         private SubmenuLayout menuLayout;
         private boolean menuShow;
         private final String menu[];
         private final int index;
+        private final int validationIndex;
         private int iconWidth;
 
         public void setAnimate(float animate) {
             menuLayout.setAnimate(animate);
         }
 
-        public SubMenuItem(String menu[], int index) {
+        public SubMenuItem(String menu[], int index, int validationIndex) {
             this.menu = menu;
             this.index = index;
+            this.validationIndex = validationIndex;
             init();
         }
 
@@ -146,20 +184,27 @@ public class SimpleMenu extends JPanel {
             menuLayout = new SubmenuLayout();
             setLayout(menuLayout);
             iconWidth = 22;
+            int index = 0;
+            int validationIndex = -1;
             for (int i = 0; i < menu.length; i++) {
-                final int index = i;
-                if (i == 0) {
-                    JButton button = createMenuItem(menu[index], this.index);
-                    if (button.getIcon() != null) {
-                        iconWidth = UIScale.unscale(button.getIcon().getIconWidth());
+                boolean validation = simpleMenuOption.menuValidation.menuValidation(this.validationIndex, ++validationIndex);
+                if (validation) {
+                    if (i == 0) {
+                        JButton button = createMenuItem(menu[i], this.index);
+                        if (button.getIcon() != null) {
+                            iconWidth = UIScale.unscale(button.getIcon().getIconWidth());
+                        }
+                        createMainMenuEvent(button);
+                        applyMenuEvent(button, this.index, index);
+                        add(button);
+                    } else {
+                        JButton button = createSubMenuItem(menu[i], index, iconWidth);
+                        applyMenuEvent(button, this.index, index);
+                        add(button);
                     }
-                    createMainMenuEvent(button);
-                    applyMenuEvent(button, this.index, index);
-                    add(button);
-                } else {
-                    JButton button = createSubMenuItem(menu[index], index, iconWidth);
-                    applyMenuEvent(button, this.index, index);
-                    add(button);
+                }
+                if (validation || simpleMenuOption.menuValidation.keepMenuValidationIndex) {
+                    index++;
                 }
             }
         }

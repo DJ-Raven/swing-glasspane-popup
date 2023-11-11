@@ -39,4 +39,8 @@ public class Drawer {
     public void closeDrawer() {
         GlassPanePopup.closePopup("drawer");
     }
+
+    public DrawerPanel getDrawerPanel() {
+        return drawerPanel;
+    }
 }

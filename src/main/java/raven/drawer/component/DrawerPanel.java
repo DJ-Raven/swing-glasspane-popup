@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class DrawerPanel extends GlassPaneChild {
 
-    private DrawerBuilder drawerBuilder;
+    private final DrawerBuilder drawerBuilder;
 
 
     public DrawerPanel(DrawerBuilder drawerBuilder) {
@@ -54,5 +54,9 @@ public class DrawerPanel extends GlassPaneChild {
                 "trackInsets:0,0,0,3;");
         scroll.setBorder(BorderFactory.createEmptyBorder());
         return scroll;
+    }
+
+    public DrawerBuilder getDrawerBuilder() {
+        return drawerBuilder;
     }
 }
