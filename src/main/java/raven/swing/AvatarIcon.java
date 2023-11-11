@@ -43,6 +43,9 @@ public class AvatarIcon implements Icon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         updateImage();
         Graphics2D g2 = (Graphics2D) g.create();
+        FlatUIUtils.setRenderingHints(g2);
+        g2.setColor(c.getBackground());
+        FlatUIUtils.paintComponentBackground(g2, x, y, imageWidth, imageHeight, 0, UIScale.scale(round));
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
@@ -50,34 +53,47 @@ public class AvatarIcon implements Icon {
     private void updateImage() {
         if ((filename != null || location != null) && (image == null || border != oldBorder)) {
             System.out.println("Create Image");
-            image = resizeImage(new ImageIcon(filename).getImage(), width, height);
-            imageWidth = image.getWidth(null);
-            imageHeight = image.getHeight(null);
+            imageWidth = UIScale.scale(width);
+            imageHeight = UIScale.scale(height);
+            oldBorder = border;
+            int b = UIScale.scale(border);
+            image = resizeImage(new ImageIcon(filename).getImage(), imageWidth, imageHeight, b);
         }
     }
 
 
-    private Image resizeImage(Image icon, int width, int height) {
-        int w = width > -1 ? Math.min(width, icon.getWidth(null)) : -1;
-        int h = height > -1 ? Math.min(height, icon.getHeight(null)) : -1;
-        Image img = new ImageIcon(icon.getScaledInstance(w, h, Image.SCALE_SMOOTH)).getImage();
-        return round > 0 ? roundImage(img, round) : img;
+    private Image resizeImage(Image icon, int width, int height, int border) {
+        width -= border * 2;
+        height -= border * 2;
+        int sw = width - icon.getWidth(null);
+        int sh = height - icon.getHeight(null);
+        Image img;
+        if (sw > sh) {
+            //  Resize width
+            img = new ImageIcon(icon.getScaledInstance(width, -1, Image.SCALE_SMOOTH)).getImage();
+        } else {
+            //  Resize height
+            img = new ImageIcon(icon.getScaledInstance(-1, height, Image.SCALE_SMOOTH)).getImage();
+        }
+        return round > 0 ? roundImage(img, width, height, border, round) : img;
     }
 
-    private Image roundImage(Image image, int round) {
-        int width = image.getWidth(null);
-        int height = image.getHeight(null);
-        BufferedImage buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    private Image roundImage(Image image, int width, int height, int border, int round) {
+        int w = image.getWidth(null);
+        int h = image.getHeight(null);
+        int x = border + (width - w) / 2;
+        int y = border + (height - h) / 2;
+        BufferedImage buff = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = buff.createGraphics();
         FlatUIUtils.setRenderingHints(g);
         if (round == 999) {
-            g.fill(new Ellipse2D.Double(0, 0, width, height));
+            g.fill(new Ellipse2D.Double(border, border, width, height));
         } else {
             int r = UIScale.scale(round);
-            g.fill(new RoundRectangle2D.Double(0, 0, width, height, r, r));
+            g.fill(new RoundRectangle2D.Double(border, border, width, height, r, r));
         }
         g.setComposite(AlphaComposite.SrcIn);
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(image, x, y, null);
         g.dispose();
         return buff;
     }

@@ -3,6 +3,7 @@ package raven.drawer.component;
 import raven.drawer.component.footer.SimpleFooter;
 import raven.drawer.component.header.SimpleHeader;
 import raven.drawer.component.DrawerBuilder;
+import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.menu.SimpleMenu;
 import raven.drawer.component.menu.SimpleMenuOption;
 
@@ -18,7 +19,7 @@ public abstract class SimpleDrawerBuilder implements DrawerBuilder {
 
 
     public SimpleDrawerBuilder() {
-        simpleHeader = new SimpleHeader();
+        simpleHeader = new SimpleHeader(getSimpleHeaderData());
         headerSeparator = new JSeparator();
         menu = new SimpleMenu(getSimpleMenuOption());
         footer = new SimpleFooter();
@@ -43,6 +44,8 @@ public abstract class SimpleDrawerBuilder implements DrawerBuilder {
     public Component getFooter() {
         return footer;
     }
+
+    public abstract SimpleHeaderData getSimpleHeaderData();
 
     public abstract SimpleMenuOption getSimpleMenuOption();
 }

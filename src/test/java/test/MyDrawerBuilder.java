@@ -1,11 +1,23 @@
 package test;
 
+import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.menu.MenuAction;
 import raven.drawer.component.menu.MenuEvent;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.menu.SimpleMenuOption;
+import raven.swing.AvatarIcon;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
+
+    @Override
+    public SimpleHeaderData getSimpleHeaderData() {
+        AvatarIcon icon=new AvatarIcon("C:\\Users\\Raven\\Desktop\\image\\p3.png", 60, 60, 999);
+        icon.setBorder(2);
+        return new SimpleHeaderData()
+                .setIcon(icon)
+                .setTitle("Ra Ven")
+                .setDescription("raven@gmail.com");
+    }
 
     @Override
     public SimpleMenuOption getSimpleMenuOption() {
