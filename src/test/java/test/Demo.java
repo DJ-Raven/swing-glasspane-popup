@@ -18,7 +18,7 @@ public class Demo extends JFrame {
         Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(600, 768));
+        setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
         setLayout(new MigLayout(""));
         JButton cmd = new JButton("Show Drawer");
