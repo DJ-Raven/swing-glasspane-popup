@@ -75,7 +75,7 @@ public class SimpleMenu extends JPanel {
 
     protected JButton createMenuItem(String name, int index) {
         JButton button = new JButton(name);
-        if (index < simpleMenuOption.icons.length) {
+        if (simpleMenuOption.icons != null && index < simpleMenuOption.icons.length) {
             String path = getBasePath();
             Icon icon = simpleMenuOption.buildMenuIcon(path + simpleMenuOption.icons[index], simpleMenuOption.iconScale);
             if (icon != null) {
