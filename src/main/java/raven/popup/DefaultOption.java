@@ -1,5 +1,7 @@
 package raven.popup;
 
+import com.formdev.flatlaf.FlatLaf;
+
 import java.awt.*;
 
 public class DefaultOption implements Option {
@@ -35,7 +37,7 @@ public class DefaultOption implements Option {
 
     @Override
     public Color background() {
-        return new Color(20, 20, 20);
+        return FlatLaf.isLafDark()?new Color(50, 50, 50):new Color(20, 20, 20);
     }
 
     @Override

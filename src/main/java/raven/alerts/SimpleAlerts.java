@@ -20,15 +20,20 @@ import java.util.Random;
 
 public class SimpleAlerts extends GlassPaneChild {
 
-    public SimpleAlerts() {
+    private final AlertsType type;
+    private final String title;
+    private final String message;
+
+    public SimpleAlerts(AlertsType type, String title, String message) {
+        this.type = type;
+        this.title = title;
+        this.message = message;
         init();
     }
 
     private void init() {
         setLayout(new MigLayout("wrap,fillx,insets 15 0 15 0", "[fill,400]"));
-        String title = "Data Save Successful";
-        String message = "Great news! Your data has been securely saved. It's all set and ready for your use whenever you need it. If you have any questions, just let us know!";
-        add(new PanelEffect(title, message));
+        add(new PanelEffect(type, title, message));
     }
 
     @Override
@@ -72,9 +77,9 @@ public class SimpleAlerts extends GlassPaneChild {
         }
 
 
-        public PanelEffect(String title, String message) {
+        public PanelEffect(AlertsType type, String title, String message) {
             setLayout(new MigLayout("fillx,wrap,insets 0,center", "[fill,center]", "[]10[][][]20[]20"));
-            labelIcon = new JLabel(new FlatSVGIcon("raven/alerts/icon/success.svg", 4f));
+            labelIcon = new JLabel(new FlatSVGIcon("raven/alerts/icon/" + type.name + ".svg", 4f));
             labelTitle = new JLabel(title, JLabel.CENTER);
             textPane = new JTextPane();
             textPane.setOpaque(false);
@@ -85,10 +90,12 @@ public class SimpleAlerts extends GlassPaneChild {
             textPane.setEditable(false);
             textPane.setText(message);
             textPane.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "border:5,25,5,25");
+                    "border:5,25,5,25;" +
+                    "[light]foreground:lighten(@foreground,30%);" +
+                    "[dark]foreground:darken(@foreground,30%)");
             labelTitle.putClientProperty(FlatClientProperties.STYLE, "" +
                     "font:bold +5;" +
-                    "foreground:#61BE79");
+                    "foreground:" + type.color);
             JPanel panelTitle = new JPanel(new MigLayout("insets 2 25 2 25,fill"));
             panelTitle.setOpaque(false);
             panelTitle.add(createCloseButton(), "trailing");
@@ -121,9 +128,9 @@ public class SimpleAlerts extends GlassPaneChild {
                     "focusWidth:0;" +
                     "innerFocusWidth:0;" +
                     "arc:10;" +
-                    "font:bold +2;" +
+                    "font:+1;" +
                     "margin:5,50,5,50;" +
-                    "background:#61BE79;" +
+                    "background:" + type.color + ";" +
                     "foreground:#F0F0F0;" +
                     "arc:999");
             add(cmd, "grow 0");
@@ -185,10 +192,28 @@ public class SimpleAlerts extends GlassPaneChild {
     }
 
     protected static final Color effectColors[] = {
-            Color.decode("#8DBF13"), Color.decode("#13BF86"),
-            Color.decode("#FF5733"), Color.decode("#E6A801"),
-            Color.decode("#FFC300"), Color.decode("#FF5733"),
-            Color.decode("#C70039"), Color.decode("#900C3F"),
-            Color.decode("#581845"), Color.decode("#4A235A")
+            Color.decode("#f43f5e"), Color.decode("#6366f1"),
+            Color.decode("#ec4899"), Color.decode("#3b82f6"),
+            Color.decode("#d946ef"), Color.decode("#0ea5e9"),
+            Color.decode("#a855f7"), Color.decode("#06b6d4"),
+            Color.decode("#8b5cf6"), Color.decode("#14b8a6"),
+            Color.decode("#10b981"), Color.decode("#22c55e"),
+            Color.decode("#84cc16"), Color.decode("#eab308"),
+            Color.decode("#f59e0b"), Color.decode("#f97316"),
+            Color.decode("#ef4444"), Color.decode("#78716c"),
+            Color.decode("#737373"), Color.decode("#71717a"),
+            Color.decode("#6b7280"), Color.decode("#64748b")
     };
+
+    public enum AlertsType {
+        SUCCESS("success", "#4FC671"), ERROR("error", "#E15D5D"), WARNING("warning", "#E1BB5D");
+
+        protected String name;
+        private String color;
+
+        private AlertsType(String name, String color) {
+            this.name = name;
+            this.color = color;
+        }
+    }
 }

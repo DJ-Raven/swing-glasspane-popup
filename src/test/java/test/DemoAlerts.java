@@ -22,7 +22,9 @@ public class DemoAlerts extends JFrame {
         setLayout(new MigLayout(""));
         JButton cmd = new JButton("Show Drawer");
         cmd.addActionListener(e -> {
-            GlassPanePopup.showPopup(new SimpleAlerts());
+            String title = "Data Save Successful";
+            String message = "Great news! Your data has been securely saved. It's all set and ready for your use whenever you need it. If you have any questions, just let us know!";
+            GlassPanePopup.showPopup(new SimpleAlerts(SimpleAlerts.AlertsType.SUCCESS, title, message));
         });
         add(cmd);
     }
