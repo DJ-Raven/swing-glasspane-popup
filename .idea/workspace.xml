@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="" />
+    <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/raven/swing/AnimateIcon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPopup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/ComponentLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/ComponentLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/GlassPaneChild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/GlassPaneChild.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +53,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/resources/raven/alerts/icon",
+    "last_opened_file_path": "D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/resources/raven/alerts/effect",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3586207",
@@ -53,11 +62,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
+      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\effect" />
       <recent name="D:\Raven\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
+      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
       <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\test\resources\image" />
       <recent name="D:\Raven\glasspane\swing-glasspane-popup\src\main\java" />
-      <recent name="D:\Raven\glasspane\swing-glasspane-popup\src\main\resources\raven\popup\icon" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="test" />

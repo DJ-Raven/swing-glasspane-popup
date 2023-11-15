@@ -98,7 +98,9 @@ public class GlassPopup extends JComponent {
             @Override
             public void end() {
                 componentLayer.hideSnapshot();
-                if (!show) {
+                if (show) {
+                    componentLayer.getComponent().popupShow();
+                } else {
                     parent.removePopup(GlassPopup.this);
                 }
                 if (option.useSnapshot()) {
