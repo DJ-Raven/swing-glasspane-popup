@@ -9,6 +9,7 @@ import com.formdev.flatlaf.util.UIScale;
 import net.miginfocom.swing.MigLayout;
 import raven.popup.GlassPanePopup;
 import raven.popup.component.GlassPaneChild;
+import raven.swing.AnimateIcon;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -20,20 +21,24 @@ import java.util.Random;
 
 public class SimpleAlerts extends GlassPaneChild {
 
-    private final AlertsType type;
     private final String title;
     private final String message;
 
     public SimpleAlerts(AlertsType type, String title, String message) {
-        this.type = type;
         this.title = title;
         this.message = message;
-        init();
+        init(AlertsOption.getAlertsOption(type));
     }
 
-    private void init() {
+    public SimpleAlerts(AlertsOption option, String title, String message) {
+        this.title = title;
+        this.message = message;
+        init(option);
+    }
+
+    private void init(AlertsOption option) {
         setLayout(new MigLayout("wrap,fillx,insets 15 0 15 0", "[fill,400]"));
-        add(new PanelEffect(type, title, message));
+        add(new PanelEffect(option, title, message));
     }
 
     @Override
@@ -43,6 +48,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
     protected class PanelEffect extends JPanel {
 
+        private AlertsOption option;
         private Effect effects[];
         private float animate;
         private Animator animator;
@@ -50,6 +56,7 @@ public class SimpleAlerts extends GlassPaneChild {
         private JLabel labelIcon;
         private JLabel labelTitle;
         private JTextPane textPane;
+        private AnimateIcon animateIcon;
 
         protected void start() {
             if (animator == null) {
@@ -57,7 +64,11 @@ public class SimpleAlerts extends GlassPaneChild {
                     @Override
                     public void timingEvent(float v) {
                         animate = v;
-                        repaint();
+                        if (animateIcon == null) {
+                            repaint();
+                        } else {
+                            animateIcon.setAnimate(animate);
+                        }
                     }
                 });
                 animator.setInterpolator(CubicBezierEasing.EASE);
@@ -77,9 +88,13 @@ public class SimpleAlerts extends GlassPaneChild {
         }
 
 
-        public PanelEffect(AlertsType type, String title, String message) {
-            setLayout(new MigLayout("fillx,wrap,insets 0,center", "[fill,center]", "[]10[][][]20[]20"));
-            labelIcon = new JLabel(new FlatSVGIcon("raven/alerts/icon/" + type.name + ".svg", 4f));
+        public PanelEffect(AlertsOption option, String title, String message) {
+            this.option = option;
+            setLayout(new MigLayout("debug,fillx,wrap,insets 0,center", "[fill,center]", "0[]3[]10[]20[]20"));
+            if (option.icon instanceof AnimateIcon) {
+                animateIcon = (AnimateIcon) option.icon;
+            }
+            labelIcon = new JLabel(option.icon);
             labelTitle = new JLabel(title, JLabel.CENTER);
             textPane = new JTextPane();
             textPane.setOpaque(false);
@@ -89,17 +104,16 @@ public class SimpleAlerts extends GlassPaneChild {
             doc.setParagraphAttributes(0, doc.getLength(), center, false);
             textPane.setEditable(false);
             textPane.setText(message);
+            labelIcon.putClientProperty(FlatClientProperties.STYLE, "" +
+                    "border:20,5,10,5");
             textPane.putClientProperty(FlatClientProperties.STYLE, "" +
                     "border:5,25,5,25;" +
                     "[light]foreground:lighten(@foreground,30%);" +
                     "[dark]foreground:darken(@foreground,30%)");
             labelTitle.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "font:bold +5;" +
-                    "foreground:" + type.color);
-            JPanel panelTitle = new JPanel(new MigLayout("insets 2 25 2 25,fill"));
-            panelTitle.setOpaque(false);
-            panelTitle.add(createCloseButton(), "trailing");
-            add(panelTitle);
+                    "font:bold +5");
+            labelTitle.setForeground(option.baseColor);
+            add(createCloseButton(), "pos visual.x2-pref-25 2");
             add(labelIcon);
             add(labelTitle);
             add(textPane);
@@ -120,6 +134,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
         protected void createButton() {
             JButton cmd = new JButton("OK");
+            cmd.setBackground(option.baseColor);
             cmd.addActionListener(e -> {
                 createEffect();
             });
@@ -130,7 +145,6 @@ public class SimpleAlerts extends GlassPaneChild {
                     "arc:10;" +
                     "font:+1;" +
                     "margin:5,50,5,50;" +
-                    "background:" + type.color + ";" +
                     "foreground:#F0F0F0;" +
                     "arc:999");
             add(cmd, "grow 0");
@@ -206,14 +220,6 @@ public class SimpleAlerts extends GlassPaneChild {
     };
 
     public enum AlertsType {
-        SUCCESS("success", "#4FC671"), ERROR("error", "#E15D5D"), WARNING("warning", "#E1BB5D");
-
-        protected String name;
-        private String color;
-
-        private AlertsType(String name, String color) {
-            this.name = name;
-            this.color = color;
-        }
+        SUCCESS, ERROR, WARNING
     }
 }
