@@ -64,11 +64,10 @@ public class SimpleAlerts extends GlassPaneChild {
                     @Override
                     public void timingEvent(float v) {
                         animate = v;
-                        if (animateIcon == null) {
-                            repaint();
-                        } else {
-                            animateIcon.setAnimate(animate);
+                        if (animateIcon != null) {
+                            animateIcon.setAnimate(easeOutBounce(v));
                         }
+                        repaint();
                     }
                 });
                 animator.setInterpolator(CubicBezierEasing.EASE);
@@ -77,6 +76,22 @@ public class SimpleAlerts extends GlassPaneChild {
                 animator.stop();
             }
             animator.start();
+        }
+
+        private float easeOutBounce(float x) {
+            double n1 = 7.5625f;
+            double d1 = 2.75f;
+            double v;
+            if (x < 1 / d1) {
+                v = n1 * x * x;
+            } else if (x < 2 / d1) {
+                v = n1 * (x -= 1.5 / d1) * x + 0.75f;
+            } else if (x < 2.5 / d1) {
+                v = n1 * (x -= 2.25 / d1) * x + 0.9375f;
+            } else {
+                v = n1 * (x -= 2.625 / d1) * x + 0.984375f;
+            }
+            return (float) v;
         }
 
         private void createEffect() {
@@ -90,7 +105,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
         public PanelEffect(AlertsOption option, String title, String message) {
             this.option = option;
-            setLayout(new MigLayout("debug,fillx,wrap,insets 0,center", "[fill,center]", "0[]3[]10[]20[]20"));
+            setLayout(new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]10[]20[]20"));
             if (option.icon instanceof AnimateIcon) {
                 animateIcon = (AnimateIcon) option.icon;
             }
@@ -105,7 +120,7 @@ public class SimpleAlerts extends GlassPaneChild {
             textPane.setEditable(false);
             textPane.setText(message);
             labelIcon.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "border:20,5,10,5");
+                    "border:25,5,10,5");
             textPane.putClientProperty(FlatClientProperties.STYLE, "" +
                     "border:5,25,5,25;" +
                     "[light]foreground:lighten(@foreground,30%);" +
@@ -113,7 +128,7 @@ public class SimpleAlerts extends GlassPaneChild {
             labelTitle.putClientProperty(FlatClientProperties.STYLE, "" +
                     "font:bold +5");
             labelTitle.setForeground(option.baseColor);
-            add(createCloseButton(), "pos visual.x2-pref-25 2");
+            add(createCloseButton(), "pos 100%-pref-25 2");
             add(labelIcon);
             add(labelTitle);
             add(textPane);
@@ -166,7 +181,7 @@ public class SimpleAlerts extends GlassPaneChild {
                 float l = size * animate;
                 float remove = 0.7f;
                 g2.translate(x, y);
-                g2.scale(s, s);
+
                 for (int i = 0; i < effects.length; i++) {
                     Effect effect = effects[i];
                     double sp = effect.speed * 0.05f;
@@ -174,11 +189,12 @@ public class SimpleAlerts extends GlassPaneChild {
                     double yy = Math.sin(Math.toRadians(effect.direction)) * l * sp;
                     AffineTransform oldTran = g2.getTransform();
                     g2.translate(xx, yy);
+                    g2.scale(s, s);
                     g2.rotate(Math.toRadians(animate * 360), 5, 5);
                     g2.setColor(effect.color);
                     if (animate >= remove) {
                         float f = (animate - remove) / (1f - remove);
-                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f - f));
+                        //  g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f - f));
                     }
                     g2.fill(effect.shape);
                     g2.setTransform(oldTran);
