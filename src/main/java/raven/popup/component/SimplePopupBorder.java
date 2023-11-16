@@ -65,6 +65,8 @@ public class SimplePopupBorder extends GlassPaneChild {
     private void applyScrollStyle(JScrollBar scrollBar) {
         scrollBar.setUnitIncrement(10);
         scrollBar.putClientProperty(FlatClientProperties.STYLE, "" +
+                "width:8;" +
+                "trackArc:999;" +
                 "thumbInsets:0,0,0,3;" +
                 "trackInsets:0,0,0,3;");
     }

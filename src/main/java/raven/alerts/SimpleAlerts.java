@@ -135,10 +135,11 @@ public class SimpleAlerts extends GlassPaneChild {
                     "arc:10;" +
                     "font:+1;" +
                     "margin:5,50,5,50;" +
-                    "foreground:#F0F0F0;" +
-                    "background:$Component.accentColor;" +
+                    "foreground:" + (option.baseColor == null ? "null" : "#F0F0F0") + ";" +
                     "arc:999");
-            cmd.setBackground(option.baseColor);
+            if (option.baseColor != null) {
+                cmd.setBackground(option.baseColor);
+            }
             add(cmd, "grow 0");
         }
 

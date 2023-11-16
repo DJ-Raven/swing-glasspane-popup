@@ -82,7 +82,7 @@ public class AlertsOption {
             };
             return getDefaultOption("raven/alerts/icon/error.svg", Color.decode("#ef4444"), effects);
         } else {
-            return getDefaultOption("raven/alerts/icon/error.svg", FlatUIUtils.getUIColor("Component.accentColor",Color.decode("#88C21B")));
+            return getDefaultOption("raven/alerts/icon/error.svg", null);
         }
     }
 
@@ -102,7 +102,7 @@ public class AlertsOption {
     public static AlertsOption getDefaultOption(String icon, Color color) {
         AnimateIcon.AnimateOption option = new AnimateIcon.AnimateOption()
                 .setScaleInterpolator(new KeyFrames(1f, 1.2f, 1f))
-                .setRotateInterpolator(new KeyFrames(0f, (float) Math.toRadians(-30),(float) Math.toRadians(30), 0f));
+                .setRotateInterpolator(new KeyFrames(0f, (float) Math.toRadians(-30), (float) Math.toRadians(30), 0f));
         return new AlertsOption(new AnimateIcon(icon, 4f, option), color)
                 .setLoopAnimation(true);
     }

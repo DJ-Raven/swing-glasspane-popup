@@ -46,18 +46,37 @@ public class MessageAlerts {
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
         textPane.setEditable(false);
         textPane.setText(message);
-
         textPane.putClientProperty(FlatClientProperties.STYLE, "" +
                 "border:5,25,5,25;" +
                 "[light]foreground:lighten(@foreground,30%);" +
                 "[dark]foreground:darken(@foreground,30%)");
         labelTitle.putClientProperty(FlatClientProperties.STYLE, "" +
                 "font:bold +5");
-        labelTitle.setForeground(option.baseColor);
-
+        if (option.baseColor != null) {
+            labelTitle.setForeground(option.baseColor);
+        }
         panel.add(labelTitle);
-        panel.add(textPane);
+        JScrollPane scrollPane = new JScrollPane(textPane);
+        if (option.effectOption != null) {
+            scrollPane.setOpaque(false);
+            scrollPane.getViewport().setOpaque(false);
+        }
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        applyScrollStyle(scrollPane.getVerticalScrollBar());
+        applyScrollStyle(scrollPane.getHorizontalScrollBar());
+        panel.add(scrollPane);
+        SwingUtilities.invokeLater(() -> scrollPane.getVerticalScrollBar().setValue(0));
         return panel;
+    }
+
+    private void applyScrollStyle(JScrollBar scrollBar) {
+        scrollBar.setUnitIncrement(10);
+        scrollBar.putClientProperty(FlatClientProperties.STYLE, "" +
+                "width:8;" +
+                "trackArc:999;" +
+                "thumbInsets:0,0,0,3;" +
+                "trackInsets:0,0,0,3;");
     }
 
     public enum MessageType {

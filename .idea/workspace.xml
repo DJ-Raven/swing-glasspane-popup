@@ -9,9 +9,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/swing/AnimateIcon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/SimplePopupBorder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/SimplePopupBorder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/themes/FlatLaf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/themes/FlatLaf.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,20 +44,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/java/raven/swing/animator",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3586207",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/java/raven/swing/animator&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3586207&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\java\raven\swing\animator" />
@@ -140,8 +139,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.DemoAlerts" />
-        <item itemvalue="Application.TestAnimation" />
         <item itemvalue="Application.Demo" />
+        <item itemvalue="Application.TestAnimation" />
         <item itemvalue="Maven.swing-glasspane-popup [package]" />
       </list>
     </recent_temporary>
@@ -163,7 +162,8 @@
       <workItem from="1700147965110" duration="1774000" />
       <workItem from="1700143408175" duration="752000" />
       <workItem from="1700144983653" duration="5434000" />
-      <workItem from="1700156477694" duration="5184000" />
+      <workItem from="1700156477694" duration="5838000" />
+      <workItem from="1700169361978" duration="3128000" />
     </task>
     <servers />
   </component>
