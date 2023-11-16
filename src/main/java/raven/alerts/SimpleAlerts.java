@@ -12,34 +12,29 @@ import raven.popup.component.GlassPaneChild;
 import raven.swing.AnimateIcon;
 
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
 public class SimpleAlerts extends GlassPaneChild {
 
-    private final String title;
-    private final String message;
     private PanelEffect panelEffect;
+    private Component component;
 
-    public SimpleAlerts(AlertsOption option, String title, String message) {
-        this.title = title;
-        this.message = message;
+    public SimpleAlerts(Component component, AlertsOption option) {
+        this.component = component;
         init(option);
     }
 
     private void init(AlertsOption option) {
         setLayout(new MigLayout("wrap,fillx,insets 15 0 15 0", "[fill,400]"));
-        panelEffect = new PanelEffect(option, title, message);
+        panelEffect = new PanelEffect(component, option);
         add(panelEffect);
     }
 
     @Override
     public void popupShow() {
-        panelEffect.createEffect();
+        panelEffect.startAnimation();
     }
 
     @Override
@@ -53,10 +48,8 @@ public class SimpleAlerts extends GlassPaneChild {
         private Effect effects[];
         private float animate;
         private Animator animator;
-
         private JLabel labelIcon;
-        private JLabel labelTitle;
-        private JTextPane textPane;
+        private Component component;
         private AnimateIcon animateIcon;
 
         protected void start() {
@@ -66,16 +59,16 @@ public class SimpleAlerts extends GlassPaneChild {
                     public void timingEvent(float v) {
                         animate = v;
                         if (animateIcon != null) {
-                            animateIcon.setAnimate(easeOutBounce(v));
+                            animateIcon.setAnimate(v);
                         }
                         repaint();
                     }
 
                     @Override
                     public void end() {
-                        if (option.effectLoop && isShowing()) {
+                        if (option.loopAnimation && isShowing()) {
                             SwingUtilities.invokeLater(() -> {
-                                createEffect();
+                                startAnimation();
                             });
                         }
                     }
@@ -88,60 +81,33 @@ public class SimpleAlerts extends GlassPaneChild {
             animator.start();
         }
 
-        private float easeOutBounce(float x) {
-            double n1 = 7.5625f;
-            double d1 = 2.75f;
-            double v;
-            if (x < 1 / d1) {
-                v = n1 * x * x;
-            } else if (x < 2 / d1) {
-                v = n1 * (x -= 1.5 / d1) * x + 0.75f;
-            } else if (x < 2.5 / d1) {
-                v = n1 * (x -= 2.25 / d1) * x + 0.9375f;
-            } else {
-                v = n1 * (x -= 2.625 / d1) * x + 0.984375f;
-            }
-            return (float) v;
-        }
-
-        private void createEffect() {
-            effects = new Effect[30];
-            for (int i = 0; i < effects.length; i++) {
-                effects[i] = new Effect(option.randomEffect);
-            }
+        private void startAnimation() {
+            createEffect();
             start();
         }
 
+        private void createEffect() {
+            if (option.effectOption != null) {
+                effects = new Effect[30];
+                for (int i = 0; i < effects.length; i++) {
+                    effects[i] = new Effect(option.effectOption.randomEffect);
+                }
+            }
+        }
 
-        public PanelEffect(AlertsOption option, String title, String message) {
+        public PanelEffect(Component component, AlertsOption option) {
+            this.component = component;
             this.option = option;
-            setLayout(new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]10[]20[]20"));
+            setLayout(new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]20"));
             if (option.icon instanceof AnimateIcon) {
                 animateIcon = (AnimateIcon) option.icon;
             }
             labelIcon = new JLabel(option.icon);
-            labelTitle = new JLabel(title, JLabel.CENTER);
-            textPane = new JTextPane();
-            textPane.setOpaque(false);
-            StyledDocument doc = textPane.getStyledDocument();
-            SimpleAttributeSet center = new SimpleAttributeSet();
-            StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-            doc.setParagraphAttributes(0, doc.getLength(), center, false);
-            textPane.setEditable(false);
-            textPane.setText(message);
             labelIcon.putClientProperty(FlatClientProperties.STYLE, "" +
                     "border:25,5,10,5");
-            textPane.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "border:5,25,5,25;" +
-                    "[light]foreground:lighten(@foreground,30%);" +
-                    "[dark]foreground:darken(@foreground,30%)");
-            labelTitle.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "font:bold +5");
-            labelTitle.setForeground(option.baseColor);
             add(createCloseButton(), "pos 100%-pref-25 2");
             add(labelIcon);
-            add(labelTitle);
-            add(textPane);
+            add(component);
             createButton();
         }
 
@@ -159,7 +125,6 @@ public class SimpleAlerts extends GlassPaneChild {
 
         protected void createButton() {
             JButton cmd = new JButton("OK");
-            cmd.setBackground(option.baseColor);
             cmd.addActionListener(e -> {
 
             });
@@ -171,13 +136,15 @@ public class SimpleAlerts extends GlassPaneChild {
                     "font:+1;" +
                     "margin:5,50,5,50;" +
                     "foreground:#F0F0F0;" +
+                    "background:$Component.accentColor;" +
                     "arc:999");
+            cmd.setBackground(option.baseColor);
             add(cmd, "grow 0");
         }
 
         @Override
         protected void paintChildren(Graphics g) {
-            if (effects != null && effects.length > 0) {
+            if (option.effectOption != null && effects != null && effects.length > 0) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 FlatUIUtils.setRenderingHints(g2);
                 int width = getWidth();
@@ -196,24 +163,23 @@ public class SimpleAlerts extends GlassPaneChild {
                     double xx = Math.cos(Math.toRadians(effect.direction)) * l * sp;
                     double yy = Math.sin(Math.toRadians(effect.direction)) * l * sp;
                     AffineTransform oldTran = g2.getTransform();
-                    Icon icon = option.randomEffect[effect.effectIndex];
+                    Icon icon = option.effectOption.randomEffect[effect.effectIndex];
                     int iw = icon.getIconWidth() / 2;
                     int ih = icon.getIconHeight() / 2;
                     xx -= iw;
                     yy -= ih;
                     g2.translate(xx, yy);
                     g2.rotate(Math.toRadians(animate * 360), iw, ih);
-                    if (option.effectAlpha < 1f) {
-                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectAlpha));
+                    if (option.effectOption.effectAlpha < 1f) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectOption.effectAlpha));
                     }
-                    if (option.effectFadeOut) {
+                    if (option.effectOption.effectFadeOut) {
                         float remove = 0.7f;
                         if (animate >= remove) {
-                            float f = ((animate - remove) / (1f - remove)) * option.effectAlpha;
-                            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectAlpha - f));
+                            float f = ((animate - remove) / (1f - remove)) * option.effectOption.effectAlpha;
+                            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectOption.effectAlpha - f));
                         }
                     }
-
                     icon.paintIcon(null, new GraphicsColorFilter(g2, effect.color), 0, 0);
                     g2.setTransform(oldTran);
                 }
