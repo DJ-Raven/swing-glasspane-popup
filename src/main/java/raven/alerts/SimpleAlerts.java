@@ -25,12 +25,6 @@ public class SimpleAlerts extends GlassPaneChild {
     private final String message;
     private PanelEffect panelEffect;
 
-    public SimpleAlerts(AlertsType type, String title, String message) {
-        this.title = title;
-        this.message = message;
-        init(AlertsOption.getAlertsOption(type));
-    }
-
     public SimpleAlerts(AlertsOption option, String title, String message) {
         this.title = title;
         this.message = message;
@@ -81,7 +75,7 @@ public class SimpleAlerts extends GlassPaneChild {
                     public void end() {
                         if (option.effectLoop && isShowing()) {
                             SwingUtilities.invokeLater(() -> {
-                                animator.start();
+                                createEffect();
                             });
                         }
                     }
@@ -202,7 +196,7 @@ public class SimpleAlerts extends GlassPaneChild {
                     double xx = Math.cos(Math.toRadians(effect.direction)) * l * sp;
                     double yy = Math.sin(Math.toRadians(effect.direction)) * l * sp;
                     AffineTransform oldTran = g2.getTransform();
-                    Icon icon = effect.effect;
+                    Icon icon = option.randomEffect[effect.effectIndex];
                     int iw = icon.getIconWidth() / 2;
                     int ih = icon.getIconHeight() / 2;
                     xx -= iw;
@@ -219,7 +213,8 @@ public class SimpleAlerts extends GlassPaneChild {
                             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectAlpha - f));
                         }
                     }
-                    effect.effect.paintIcon(null, new GraphicsColorFilter(g2, effect.color), 0, 0);
+
+                    icon.paintIcon(null, new GraphicsColorFilter(g2, effect.color), 0, 0);
                     g2.setTransform(oldTran);
                 }
                 g2.dispose();
@@ -230,7 +225,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
     protected class Effect {
 
-        protected Icon effect;
+        protected int effectIndex;
         protected Color color;
         protected float direction;
         protected float speed;
@@ -239,7 +234,7 @@ public class SimpleAlerts extends GlassPaneChild {
             Random random = new Random();
             color = effectColors[random.nextInt(effectColors.length)];
             if (randomEffect != null && randomEffect.length > 0) {
-                effect = randomEffect[random.nextInt(randomEffect.length)];
+                effectIndex = random.nextInt(randomEffect.length);
             }
             direction = random.nextInt(360);
             speed = random.nextInt(25) + 5;
@@ -278,9 +273,5 @@ public class SimpleAlerts extends GlassPaneChild {
         public void setPaint(Paint paint) {
             super.setPaint(color);
         }
-    }
-
-    public enum AlertsType {
-        SUCCESS, ERROR, WARNING
     }
 }

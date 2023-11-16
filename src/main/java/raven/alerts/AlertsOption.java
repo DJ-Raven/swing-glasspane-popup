@@ -41,8 +41,8 @@ public class AlertsOption {
         return this;
     }
 
-    protected static AlertsOption getAlertsOption(SimpleAlerts.AlertsType type) {
-        if (type == SimpleAlerts.AlertsType.SUCCESS) {
+    protected static AlertsOption getAlertsOption(MessageAlerts.MessageType messageType) {
+        if (messageType == MessageAlerts.MessageType.SUCCESS) {
             Icon effects[] = new Icon[]{
                     new FlatSVGIcon("raven/alerts/effect/check.svg"),
                     new FlatSVGIcon("raven/alerts/effect/star.svg"),
@@ -51,12 +51,12 @@ public class AlertsOption {
             };
             return getDefaultOption("raven/alerts/icon/success.svg", "#10b981")
                     .setRandomEffect(effects);
-        } else if (type == SimpleAlerts.AlertsType.WARNING) {
+        } else if (messageType == MessageAlerts.MessageType.WARNING) {
             Icon effects[] = new Icon[]{
-                    new FlatSVGIcon("raven/alerts/effect/check.svg"),
-                    new FlatSVGIcon("raven/alerts/effect/star.svg"),
-                    new FlatSVGIcon("raven/alerts/effect/firework.svg"),
-                    new FlatSVGIcon("raven/alerts/effect/balloon.svg")
+                    new FlatSVGIcon("raven/alerts/effect/disclaimer.svg"),
+                    new FlatSVGIcon("raven/alerts/effect/warning.svg"),
+                    new FlatSVGIcon("raven/alerts/effect/query.svg"),
+                    new FlatSVGIcon("raven/alerts/effect/mark.svg")
             };
             return getDefaultOption("raven/alerts/icon/warning.svg", "#f59e0b")
                     .setRandomEffect(effects);
