@@ -17,7 +17,7 @@ import java.awt.*;
 public class DemoAlerts extends JFrame {
 
     public DemoAlerts() {
-        applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        //applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         GlassPanePopup.install(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1366, 768));
@@ -26,23 +26,61 @@ public class DemoAlerts extends JFrame {
         JButton cmd = new JButton("Show Simple Alerts");
         cmd.addActionListener(e -> {
             String title = "Data Save Successful";
-            String message = "A bound size is a size that optionally has a lower and/or upper bound. Practically it is a minimum/preferred/maximum size combination but none of the sizes are actually mandatory. If a size is missing (e.g. the preferred) it is null and will be replaced by the most appropriate value. For components this value is the corresponding size (E.g. Component.getPreferredSize() on Swing) and for columns/rows it is the size of the components in the row (see min/pref/max in UnitValue above).\n" +
-                    "\n" +
-                    "The format is \"min:preferred:max\", however there are shorter versions since for instance it is seldom needed to specify the maximum size.\n" +
-                    "\n" +
-                    "A single value (E.g. \"10\") sets only the preferred size and is exactly the same as \"null:10:null\" and \":10:\" and \"n:10:n\".\n" +
-                    "Two values (E.g. \"10:20\") means minimum and preferred size and is exactly the same as \"10:20:null\" and \"10:20:\" and \"10:20:n\"\n" +
-                    "The use a of an exclamation mark (E.g. \"20!\") means that the value should be used for all size types and no colon may then be used in the string. It is the same as \"20:20:20\".\n" +
-                    "\n" +
-                    "push can be appended to a gap to make that gap \"greedy\" and take any left over space. This means that a gap that has \"push\" will be pushing the components/rows/columns apart, taking as much space as possible for the gap. The gap push is always an addition to a BoundSize. E.g. \"gap rel:push\", \"[][]push[][]\", \"10cm!:push\" or \"10:10:10:push\".\n" +
-                    "\n" +
-                    "Note! For row/column constraints the minimum, preferred and maximum keywords can be used. A null value is the same thing as any of these constraints, for the indicated position, but they can for instance be used to set the minimum size to the preferred one or the other way around. E.g. \"pref:pref\" or \"min:min:pref\".\n" +
-                    "\n" +
-                    "AlignKeyword\n" +
-                    "For alignment purposes these keywords can be used: t/top, l/left, b/bottom, r/right, lead/leading, trail/trailing and base/baseline. Leading/trailing is dependant on if component orientation is \"left-to-right\" or \"right-to-left\". There is also a keyword \"align label\" or for columns/rows one need only to use \"label\". It will align the component(s), which is normally labels, left, center or right depending on the style guides for the platform. This currently means left justfied on all platforms except OS X which has right justified labels.";
-            MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT);
+            String message = getSample();
+            MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT, MessageAlerts.YES_NO_CANCEL_OPTION);
         });
         add(cmd);
+    }
+
+    public String getSample() {
+        return "These terms and conditions outline the rules and regulations for the use of Raven Channel's Website.\n" +
+                "\n" +
+                "By accessing this website, we assume you accept these terms and conditions in full. Do not continue to use Raven Channel's website if you do not accept all of the terms and conditions stated on this page.\n" +
+                "\n" +
+                "The following terminology applies to these Terms and Conditions, Privacy Statement, and Disclaimer Notice and any or all Agreements: \"Client,\" \"You,\" and \"Your\" refers to you, the person accessing this website and accepting the Company's terms and conditions. \"The Company,\" \"Ourselves,\" \"We,\" \"Our,\" and \"Us,\" refers to Raven Channel. \"Party,\" \"Parties,\" or \"Us,\" refers to both the Client and ourselves, or either the Client or ourselves.\n" +
+                "\n" +
+                "Cookies\n" +
+                "\n" +
+                "We employ the use of cookies. By accessing Raven Channel's website, you agree to use cookies in agreement with Raven Channel's Privacy Policy.\n" +
+                "\n" +
+                "Most interactive websites use cookies to retrieve user details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.\n" +
+                "\n" +
+                "License\n" +
+                "\n" +
+                "Unless otherwise stated, Raven Channel and/or its licensors own the intellectual property rights for all material on Raven Channel. All intellectual property rights are reserved. You may access this from Raven Channel for your personal use subjected to restrictions set in these terms and conditions.\n" +
+                "\n" +
+                "You must not:\n" +
+                "\n" +
+                "Republish material from Raven Channel\n" +
+                "Sell, rent, or sub-license material from Raven Channel\n" +
+                "Reproduce, duplicate, or copy material from Raven Channel\n" +
+                "Redistribute content from Raven Channel\n" +
+                "This Agreement shall begin on the date hereof.\n" +
+                "\n" +
+                "Disclaimer\n" +
+                "\n" +
+                "To the maximum extent permitted by applicable law, we exclude all representations, warranties, and conditions relating to our website and the use of this website. Nothing in this disclaimer will:\n" +
+                "\n" +
+                "Limit or exclude our or your liability for death or personal injury.\n" +
+                "Limit or exclude our or your liability for fraud or fraudulent misrepresentation.\n" +
+                "Limit any of our or your liabilities in any way that is not permitted under applicable law.\n" +
+                "The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort, and for breach of statutory duty.\n" +
+                "\n" +
+                "As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.\n" +
+                "\n" +
+                "Reservation of Rights\n" +
+                "\n" +
+                "We reserve the right to request that you remove all links or any particular link to our website. You approve to immediately remove all links to our website upon request. We also reserve the right to amend these terms and conditions and it’s linking policy at any time. By continuously linking to our website, you agree to be bound to and follow these linking terms and conditions.\n" +
+                "\n" +
+                "Variation of Terms\n" +
+                "\n" +
+                "Raven Channel is permitted to revise these terms at any time as it sees fit, and by using this website, you are expected to review these terms on a regular basis.\n" +
+                "\n" +
+                "Governing Law & Jurisdiction\n" +
+                "\n" +
+                "These terms will be governed by and interpreted in accordance with the laws of the jurisdiction of [Your Company's Jurisdiction], and you submit to the non-exclusive jurisdiction of the state and federal courts located in [Your Company's Jurisdiction] for the resolution of any disputes.\n" +
+                "\n" +
+                "These terms and conditions have been generated at [Terms And Conditions Generator], the technology law firm.";
     }
 
     public static void main(String[] args) {

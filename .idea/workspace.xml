@@ -7,12 +7,7 @@
     <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/MenuLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/menu/SimpleMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPanePopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPanePopup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/SimplePopupBorder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/SimplePopupBorder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/test/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,8 +150,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.DemoAlerts" />
-        <item itemvalue="Application.TestSampleMessage" />
         <item itemvalue="Application.Demo" />
+        <item itemvalue="Application.TestSampleMessage" />
         <item itemvalue="Application.TestAnimation" />
         <item itemvalue="Maven.swing-glasspane-popup [package]" />
       </list>
@@ -182,7 +177,7 @@
       <workItem from="1700156477694" duration="5838000" />
       <workItem from="1700169361978" duration="3184000" />
       <workItem from="1700493533571" duration="75000" />
-      <workItem from="1700493988140" duration="7371000" />
+      <workItem from="1700493988140" duration="11782000" />
     </task>
     <servers />
   </component>

@@ -20,9 +20,11 @@ public class SimpleAlerts extends GlassPaneChild {
 
     private PanelEffect panelEffect;
     private Component component;
+    private Component actionComponent;
 
-    public SimpleAlerts(Component component, AlertsOption option) {
+    public SimpleAlerts(Component component, Component actionComponent, AlertsOption option) {
         this.component = component;
+        this.actionComponent = actionComponent;
         init(option);
     }
 
@@ -51,6 +53,8 @@ public class SimpleAlerts extends GlassPaneChild {
         private JLabel labelIcon;
         private Component component;
         private AnimateIcon animateIcon;
+        private MigLayout layout;
+        private Component closeButton;
 
         protected void start() {
             if (animator == null) {
@@ -98,17 +102,29 @@ public class SimpleAlerts extends GlassPaneChild {
         public PanelEffect(Component component, AlertsOption option) {
             this.component = component;
             this.option = option;
-            setLayout(new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]20"));
+            layout = new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]20[]5");
+            setLayout(layout);
             if (option.icon instanceof AnimateIcon) {
                 animateIcon = (AnimateIcon) option.icon;
             }
             labelIcon = new JLabel(option.icon);
             labelIcon.putClientProperty(FlatClientProperties.STYLE, "" +
                     "border:25,5,10,5");
-            add(createCloseButton(), "pos 100%-pref-25 2");
+            boolean ltr = getComponentOrientation().isLeftToRight();
+            closeButton = createCloseButton();
+            add(closeButton, "pos " + (ltr ? "100%-pref-25" : "25") + " 2");
             add(labelIcon);
             add(component);
-            createButton();
+            if (actionComponent != null) {
+                add(actionComponent);
+            }
+        }
+
+        @Override
+        public void applyComponentOrientation(ComponentOrientation o) {
+            super.applyComponentOrientation(o);
+            boolean ltr = getComponentOrientation().isLeftToRight();
+            layout.setComponentConstraints(closeButton, "pos " + (ltr ? "100%-pref-25" : "25") + " 2");
         }
 
         protected Component createCloseButton() {
@@ -121,26 +137,6 @@ public class SimpleAlerts extends GlassPaneChild {
                     "background:null");
             cmdClose.addActionListener(e -> GlassPanePopup.closePopup(SimpleAlerts.this));
             return cmdClose;
-        }
-
-        protected void createButton() {
-            JButton cmd = new JButton("OK");
-            cmd.addActionListener(e -> {
-
-            });
-            cmd.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "borderWidth:0;" +
-                    "focusWidth:0;" +
-                    "innerFocusWidth:0;" +
-                    "arc:10;" +
-                    "font:+1;" +
-                    "margin:5,50,5,50;" +
-                    "foreground:" + (option.baseColor == null ? "null" : "#F0F0F0") + ";" +
-                    "arc:999");
-            if (option.baseColor != null) {
-                cmd.setBackground(option.baseColor);
-            }
-            add(cmd, "grow 0");
         }
 
         @Override
