@@ -17,6 +17,7 @@ import java.awt.*;
 public class DemoAlerts extends JFrame {
 
     public DemoAlerts() {
+        applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         GlassPanePopup.install(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1366, 768));

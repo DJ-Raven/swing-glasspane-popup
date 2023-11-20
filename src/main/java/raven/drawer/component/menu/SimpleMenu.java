@@ -232,11 +232,7 @@ public class SimpleMenu extends JPanel {
             JButton button = new JButton(name);
             button.setHorizontalAlignment(JButton.LEADING);
             button.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "arc:0;" +
-                    "margin:7," + (gap + 25) + ",7,20;" +
-                    "borderWidth:0;" +
-                    "focusWidth:0;" +
-                    "innerFocusWidth:0;" +
+                    "border:7," + (gap + 25) + ",7,20;" +
                     "background:null");
             return button;
         }
@@ -245,6 +241,7 @@ public class SimpleMenu extends JPanel {
         protected void paintChildren(Graphics g) {
             super.paintChildren(g);
             if (getComponentCount() > 0) {
+                boolean ltr = getComponentOrientation().isLeftToRight();
                 int menuHeight = getComponent(0).getHeight();
                 int width = getWidth();
                 int height = getHeight();
@@ -255,21 +252,21 @@ public class SimpleMenu extends JPanel {
                 int round = UIScale.scale(8);
                 int gap = UIScale.scale(20 + (iconWidth / 2));
                 Path2D.Double p = new Path2D.Double();
-                int x = gap;
+                int x = ltr ? gap : width - gap;
                 p.moveTo(x, menuHeight);
                 p.lineTo(x, last - round);
                 int count = getComponentCount();
                 for (int i = 1; i < count; i++) {
                     Component com = getComponent(i);
                     int y = com.getY() + (com.getHeight() / 2);
-                    p.append(createCurve(round, x, y, true), false);
+                    p.append(createCurve(round, x, y, ltr), false);
                 }
                 Color color = FlatLaf.isLafDark() ? ColorFunctions.darken(getForeground(), 0.6f) : ColorFunctions.lighten(getForeground(), 0.6f);
                 g2.setColor(color);
                 g2.setStroke(new BasicStroke(UIScale.scale(1f)));
                 g2.draw(p);
                 //  Create arrow
-                paintArrow(g2, width, menuHeight, menuLayout.getAnimate());
+                paintArrow(g2, width, menuHeight, menuLayout.getAnimate(), ltr);
                 g2.dispose();
             }
         }
@@ -286,11 +283,11 @@ public class SimpleMenu extends JPanel {
             return p2;
         }
 
-        private void paintArrow(Graphics2D g2, int width, int height, float animate) {
+        private void paintArrow(Graphics2D g2, int width, int height, float animate, boolean ltr) {
             int arrowWidth = UIScale.scale(10);
             int arrowHeight = UIScale.scale(4);
             int gap = UIScale.scale(15);
-            int x = width - arrowWidth - gap;
+            int x = ltr ? (width - arrowWidth - gap) : gap;
             int y = (height - arrowHeight) / 2;
             Path2D p = new Path2D.Double();
             p.moveTo(0, animate * arrowHeight);

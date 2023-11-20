@@ -27,6 +27,8 @@ public class GlassPanePopup {
 
     protected void addAndShowPopup(GlassPaneChild component, Option option, String name) {
         GlassPopup popup = new GlassPopup(this, component, option);
+        instance.layerPane.applyComponentOrientation(instance.contentPane.getComponentOrientation());
+        popup.applyComponentOrientation(instance.contentPane.getComponentOrientation());
         if (name != null) {
             popup.setName(name);
         }
