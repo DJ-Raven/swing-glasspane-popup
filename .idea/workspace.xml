@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/ShapeGenerator.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/PopupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +181,8 @@
       <workItem from="1700156477694" duration="5838000" />
       <workItem from="1700169361978" duration="3184000" />
       <workItem from="1700493533571" duration="75000" />
-      <workItem from="1700493988140" duration="11782000" />
+      <workItem from="1700493988140" duration="11876000" />
+      <workItem from="1700581088567" duration="4180000" />
     </task>
     <servers />
   </component>

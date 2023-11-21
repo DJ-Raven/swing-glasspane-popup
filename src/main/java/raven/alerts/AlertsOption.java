@@ -1,7 +1,6 @@
 package raven.alerts;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.ui.FlatUIUtils;
 import raven.swing.AnimateIcon;
 import raven.swing.animator.EasingInterpolator;
 import raven.swing.animator.KeyFrames;
@@ -82,7 +81,7 @@ public class AlertsOption {
             };
             return getDefaultOption("raven/alerts/icon/error.svg", Color.decode("#ef4444"), effects);
         } else {
-            return getDefaultOption("raven/alerts/icon/error.svg", null);
+            return getDefaultOption("raven/alerts/icon/question.svg", null);
         }
     }
 

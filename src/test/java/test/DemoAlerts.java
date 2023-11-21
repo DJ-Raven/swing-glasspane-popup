@@ -4,9 +4,6 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import com.formdev.flatlaf.ui.FlatUIUtils;
-import com.formdev.flatlaf.util.ColorFunctions;
-import com.github.weisj.jsvg.util.ColorUtil;
 import net.miginfocom.swing.MigLayout;
 import raven.alerts.MessageAlerts;
 import raven.popup.GlassPanePopup;
@@ -27,7 +24,10 @@ public class DemoAlerts extends JFrame {
         cmd.addActionListener(e -> {
             String title = "Data Save Successful";
             String message = getSample();
-            MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT, MessageAlerts.YES_NO_CANCEL_OPTION);
+            // MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT, MessageAlerts.YES_NO_CANCEL_OPTION, (controller, action) -> {
+            //    System.out.println(action);
+            // });
+            MessageAlerts.getInstance().showMessage("Info", "Information Regarding Data Saving - We've Detected an Issue. Rest Assured, Our Team Is Actively Addressing This for a Swift Resolution.", MessageAlerts.MessageType.SUCCESS,MessageAlerts.OK_CANCEL_OPTION,null);
         });
         add(cmd);
     }

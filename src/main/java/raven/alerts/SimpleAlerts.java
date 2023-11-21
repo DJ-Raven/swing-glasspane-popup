@@ -9,6 +9,8 @@ import com.formdev.flatlaf.util.Graphics2DProxy;
 import net.miginfocom.swing.MigLayout;
 import raven.popup.GlassPanePopup;
 import raven.popup.component.GlassPaneChild;
+import raven.popup.component.PopupCallbackAction;
+import raven.popup.component.PopupController;
 import raven.swing.AnimateIcon;
 
 import javax.swing.*;
@@ -19,18 +21,19 @@ import java.util.Random;
 public class SimpleAlerts extends GlassPaneChild {
 
     private PanelEffect panelEffect;
-    private Component component;
-    private Component actionComponent;
+    private final Component component;
+    private final int option;
 
-    public SimpleAlerts(Component component, Component actionComponent, AlertsOption option) {
+    public SimpleAlerts(Component component, AlertsOption alertsOption, int option, PopupCallbackAction callbackAction) {
         this.component = component;
-        this.actionComponent = actionComponent;
-        init(option);
+        this.option = option;
+        this.callbackAction = callbackAction;
+        init(alertsOption);
     }
 
-    private void init(AlertsOption option) {
+    private void init(AlertsOption alertsOption) {
         setLayout(new MigLayout("wrap,fillx,insets 15 0 15 0", "[fill,400]"));
-        panelEffect = new PanelEffect(component, option);
+        panelEffect = new PanelEffect(component, alertsOption);
         add(panelEffect);
     }
 
@@ -46,7 +49,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
     protected class PanelEffect extends JPanel {
 
-        private AlertsOption option;
+        private AlertsOption alertsOption;
         private Effect effects[];
         private float animate;
         private Animator animator;
@@ -70,7 +73,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
                     @Override
                     public void end() {
-                        if (option.loopAnimation && isShowing()) {
+                        if (alertsOption.loopAnimation && isShowing()) {
                             SwingUtilities.invokeLater(() -> {
                                 startAnimation();
                             });
@@ -91,23 +94,23 @@ public class SimpleAlerts extends GlassPaneChild {
         }
 
         private void createEffect() {
-            if (option.effectOption != null) {
+            if (alertsOption.effectOption != null) {
                 effects = new Effect[30];
                 for (int i = 0; i < effects.length; i++) {
-                    effects[i] = new Effect(option.effectOption.randomEffect);
+                    effects[i] = new Effect(alertsOption.effectOption.randomEffect);
                 }
             }
         }
 
-        public PanelEffect(Component component, AlertsOption option) {
+        public PanelEffect(Component component, AlertsOption alertsOption) {
             this.component = component;
-            this.option = option;
+            this.alertsOption = alertsOption;
             layout = new MigLayout("fillx,wrap,insets 0", "[fill,center]", "0[]3[]20[]5");
             setLayout(layout);
-            if (option.icon instanceof AnimateIcon) {
-                animateIcon = (AnimateIcon) option.icon;
+            if (alertsOption.icon instanceof AnimateIcon) {
+                animateIcon = (AnimateIcon) alertsOption.icon;
             }
-            labelIcon = new JLabel(option.icon);
+            labelIcon = new JLabel(alertsOption.icon);
             labelIcon.putClientProperty(FlatClientProperties.STYLE, "" +
                     "border:25,5,10,5");
             boolean ltr = getComponentOrientation().isLeftToRight();
@@ -115,9 +118,8 @@ public class SimpleAlerts extends GlassPaneChild {
             add(closeButton, "pos " + (ltr ? "100%-pref-25" : "25") + " 2");
             add(labelIcon);
             add(component);
-            if (actionComponent != null) {
-                add(actionComponent);
-            }
+            add(createActionButton(option, alertsOption.baseColor));
+
         }
 
         @Override
@@ -135,13 +137,27 @@ public class SimpleAlerts extends GlassPaneChild {
                     "focusWidth:0;" +
                     "innerFocusWidth:0;" +
                     "background:null");
-            cmdClose.addActionListener(e -> GlassPanePopup.closePopup(SimpleAlerts.this));
+            applyCloseButtonEvent(cmdClose, PopupCallbackAction.CLOSE);
             return cmdClose;
+        }
+
+        protected void applyCloseButtonEvent(JButton button, int opt) {
+            button.addActionListener(e -> {
+                if (callbackAction == null) {
+                    GlassPanePopup.closePopup(SimpleAlerts.this);
+                    return;
+                }
+                PopupController action = createController();
+                callbackAction.action(action, opt);
+                if (!action.getConsume()) {
+                    GlassPanePopup.closePopup(SimpleAlerts.this);
+                }
+            });
         }
 
         @Override
         protected void paintChildren(Graphics g) {
-            if (option.effectOption != null && effects != null && effects.length > 0) {
+            if (alertsOption.effectOption != null && effects != null && effects.length > 0) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 FlatUIUtils.setRenderingHints(g2);
                 int width = getWidth();
@@ -160,21 +176,21 @@ public class SimpleAlerts extends GlassPaneChild {
                     double xx = Math.cos(Math.toRadians(effect.direction)) * l * sp;
                     double yy = Math.sin(Math.toRadians(effect.direction)) * l * sp;
                     AffineTransform oldTran = g2.getTransform();
-                    Icon icon = option.effectOption.randomEffect[effect.effectIndex];
+                    Icon icon = alertsOption.effectOption.randomEffect[effect.effectIndex];
                     int iw = icon.getIconWidth() / 2;
                     int ih = icon.getIconHeight() / 2;
                     xx -= iw;
                     yy -= ih;
                     g2.translate(xx, yy);
                     g2.rotate(Math.toRadians(animate * 360), iw, ih);
-                    if (option.effectOption.effectAlpha < 1f) {
-                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectOption.effectAlpha));
+                    if (alertsOption.effectOption.effectAlpha < 1f) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alertsOption.effectOption.effectAlpha));
                     }
-                    if (option.effectOption.effectFadeOut) {
+                    if (alertsOption.effectOption.effectFadeOut) {
                         float remove = 0.7f;
                         if (animate >= remove) {
-                            float f = ((animate - remove) / (1f - remove)) * option.effectOption.effectAlpha;
-                            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, option.effectOption.effectAlpha - f));
+                            float f = ((animate - remove) / (1f - remove)) * alertsOption.effectOption.effectAlpha;
+                            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alertsOption.effectOption.effectAlpha - f));
                         }
                     }
                     icon.paintIcon(null, new GraphicsColorFilter(g2, effect.color), 0, 0);
@@ -183,6 +199,42 @@ public class SimpleAlerts extends GlassPaneChild {
                 g2.dispose();
             }
             super.paintChildren(g);
+        }
+
+
+        private JPanel createActionButton(int option, Color color) {
+            JPanel panel = new JPanel(new MigLayout("insets 3,center,gapx 15", "center"));
+            switch (option) {
+                case MessageAlerts.OK_CANCEL_OPTION:
+                    panel.add(createButton("Cancel", null, MessageAlerts.CANCEL_OPTION));
+                case MessageAlerts.DEFAULT_OPTION:
+                    panel.add(createButton("OK", color, MessageAlerts.OK_OPTION), 0);
+                    break;
+                case MessageAlerts.YES_NO_CANCEL_OPTION:
+                    panel.add(createButton("Cancel", null, MessageAlerts.CANCEL_OPTION));
+                case MessageAlerts.YES_NO_OPTION:
+                    panel.add(createButton("No", null, MessageAlerts.NO_OPTION), 0);
+                    panel.add(createButton("Yes", color, MessageAlerts.YES_OPTION), 0);
+            }
+            return panel;
+        }
+
+        private JButton createButton(String text, Color color, int option) {
+            JButton cmd = new JButton(text);
+            applyCloseButtonEvent(cmd, option);
+            cmd.putClientProperty(FlatClientProperties.STYLE, "" +
+                    "borderWidth:0;" +
+                    "focusWidth:0;" +
+                    "innerFocusWidth:0;" +
+                    "arc:10;" +
+                    "font:+1;" +
+                    "margin:5,35,5,35;" +
+                    "foreground:" + (color == null ? "null" : "#F0F0F0") + ";" +
+                    "arc:999");
+            if (color != null) {
+                cmd.setBackground(color);
+            }
+            return cmd;
         }
     }
 

@@ -3,6 +3,7 @@ package raven.alerts;
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
 import raven.popup.GlassPanePopup;
+import raven.popup.component.PopupCallbackAction;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -37,18 +38,17 @@ public class MessageAlerts {
     }
 
     public void showMessage(String title, String message) {
-        showMessage(title, message, MessageType.DEFAULT, DEFAULT_OPTION);
+        showMessage(title, message, MessageType.DEFAULT);
     }
 
     public void showMessage(String title, String message, MessageType messageType) {
-        showMessage(title, message, messageType, DEFAULT_OPTION);
+        showMessage(title, message, messageType, DEFAULT_OPTION, null);
     }
 
-    public void showMessage(String title, String message, MessageType messageType, int option) {
+    public void showMessage(String title, String message, MessageType messageType, int option, PopupCallbackAction callback) {
         AlertsOption alertsOption = AlertsOption.getAlertsOption(messageType);
-        GlassPanePopup.showPopup(new SimpleAlerts(createSimpleMessage(alertsOption, title, message), createActionButton(option, alertsOption.baseColor), alertsOption));
+        GlassPanePopup.showPopup(new SimpleAlerts(createSimpleMessage(alertsOption, title, message), alertsOption, option, callback));
     }
-
 
     private Component createSimpleMessage(AlertsOption option, String title, String message) {
         JPanel panel = new JPanel(new MigLayout("wrap,insets 0,center", "center"));
@@ -86,21 +86,6 @@ public class MessageAlerts {
         return panel;
     }
 
-    private JPanel createActionButton(int option, Color color) {
-        JPanel panel = new JPanel(new MigLayout("insets 3,center,gapx 15", "center"));
-        switch (option) {
-            case DEFAULT_OPTION:
-                panel.add(createButton("OK", color));
-                break;
-            case YES_NO_CANCEL_OPTION:
-                panel.add(createButton("Cancel", null));
-            case YES_NO_OPTION:
-                panel.add(createButton("No", null), 0);
-                panel.add(createButton("Yes", color), 0);
-        }
-        return panel;
-    }
-
     private void applyScrollStyle(JScrollBar scrollBar) {
         scrollBar.setUnitIncrement(10);
         scrollBar.putClientProperty(FlatClientProperties.STYLE, "" +
@@ -108,26 +93,6 @@ public class MessageAlerts {
                 "trackArc:999;" +
                 "thumbInsets:0,3,0,3;" +
                 "trackInsets:0,3,0,3;");
-    }
-
-    private JButton createButton(String text, Color color) {
-        JButton cmd = new JButton(text);
-        cmd.addActionListener(e -> {
-
-        });
-        cmd.putClientProperty(FlatClientProperties.STYLE, "" +
-                "borderWidth:0;" +
-                "focusWidth:0;" +
-                "innerFocusWidth:0;" +
-                "arc:10;" +
-                "font:+1;" +
-                "margin:5,35,5,35;" +
-                "foreground:" + (color == null ? "null" : "#F0F0F0") + ";" +
-                "arc:999");
-        if (color != null) {
-            cmd.setBackground(color);
-        }
-        return cmd;
     }
 
     public enum MessageType {

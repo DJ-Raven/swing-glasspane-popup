@@ -4,7 +4,7 @@ public abstract class PopupController {
 
     private boolean consume;
 
-    protected boolean getConsume() {
+    public boolean getConsume() {
         return consume;
     }
 

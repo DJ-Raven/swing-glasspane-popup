@@ -34,7 +34,9 @@ public class Drawer {
         if (drawerPanel == null) {
             throw new NullPointerException("Drawer builder has not initialize");
         }
-        GlassPanePopup.showPopup(drawerPanel, option, "drawer");
+        if (!drawerPanel.isShowing()) {
+            GlassPanePopup.showPopup(drawerPanel, option, "drawer");
+        }
     }
 
     public void closeDrawer() {
