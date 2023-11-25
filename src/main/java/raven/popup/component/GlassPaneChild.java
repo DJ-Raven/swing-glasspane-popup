@@ -21,6 +21,9 @@ public class GlassPaneChild extends JPanel {
 
     }
 
+    public void popupShow() {
+    }
+
     protected PopupController createController() {
         return new PopupController() {
 

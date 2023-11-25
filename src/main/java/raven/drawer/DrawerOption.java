@@ -6,7 +6,15 @@ import java.awt.*;
 
 public class DrawerOption extends DefaultOption {
 
-    private final int width = 275;
+    private final int width;
+
+    public DrawerOption() {
+        this(275);
+    }
+
+    public DrawerOption(int width) {
+        this.width = width;
+    }
 
     @Override
     public String getLayout(Component parent, float animate) {

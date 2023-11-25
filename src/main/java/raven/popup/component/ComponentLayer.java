@@ -78,6 +78,7 @@ public class ComponentLayer extends JPanel {
             public void end() {
                 showSnapshot = false;
                 component = nextComponent;
+                component.popupShow();
                 nextComponent = null;
                 animate = 0;
                 component.setVisible(true);

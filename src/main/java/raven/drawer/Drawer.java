@@ -22,11 +22,11 @@ public class Drawer {
     }
 
     private Drawer() {
-        option = new DrawerOption();
     }
 
     public void setDrawerBuilder(DrawerBuilder drawerBuilder) {
         drawerPanel = new DrawerPanel(drawerBuilder);
+        option = new DrawerOption(drawerBuilder.getDrawerWidth());
         drawerBuilder.build(drawerPanel);
     }
 
@@ -34,11 +34,17 @@ public class Drawer {
         if (drawerPanel == null) {
             throw new NullPointerException("Drawer builder has not initialize");
         }
-        GlassPanePopup.showPopup(drawerPanel, option, "drawer");
+        if (!isShowing()) {
+            GlassPanePopup.showPopup(drawerPanel, option, "drawer");
+        }
     }
 
     public void closeDrawer() {
         GlassPanePopup.closePopup("drawer");
+    }
+
+    public boolean isShowing() {
+        return GlassPanePopup.isShowing(drawerPanel);
     }
 
     public DrawerPanel getDrawerPanel() {

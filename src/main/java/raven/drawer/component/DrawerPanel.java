@@ -39,21 +39,16 @@ public class DrawerPanel extends GlassPaneChild {
 
     protected JScrollPane createScroll(Component component) {
         JScrollPane scroll = new JScrollPane(component);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.putClientProperty(FlatClientProperties.STYLE, "" +
                 "background:null");
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
-                "width:6;" +
+                "width:9;" +
                 "trackArc:999;" +
-                "thumbInsets:0,0,0,3;" +
-                "trackInsets:0,0,0,3;" +
-                "background:null");
-        scroll.getHorizontalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
-                "width:6;" +
-                "trackArc:999;" +
-                "thumbInsets:0,0,0,3;" +
-                "trackInsets:0,0,0,3;" +
+                "thumbInsets:0,3,0,3;" +
+                "trackInsets:0,3,0,3;" +
                 "background:null");
         scroll.setBorder(BorderFactory.createEmptyBorder());
         return scroll;
