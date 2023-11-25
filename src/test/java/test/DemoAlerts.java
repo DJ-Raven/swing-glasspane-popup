@@ -3,7 +3,6 @@ package test;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import net.miginfocom.swing.MigLayout;
 import raven.alerts.MessageAlerts;
 import raven.popup.GlassPanePopup;
@@ -24,10 +23,13 @@ public class DemoAlerts extends JFrame {
         cmd.addActionListener(e -> {
             String title = "Data Save Successful";
             String message = getSample();
-            // MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT, MessageAlerts.YES_NO_CANCEL_OPTION, (controller, action) -> {
-            //    System.out.println(action);
-            // });
-            MessageAlerts.getInstance().showMessage("Info", "Information Regarding Data Saving - We've Detected an Issue. Rest Assured, Our Team Is Actively Addressing This for a Swift Resolution.", MessageAlerts.MessageType.SUCCESS,MessageAlerts.OK_CANCEL_OPTION,null);
+          //   MessageAlerts.getInstance().showMessage(title, message, MessageAlerts.MessageType.DEFAULT, MessageAlerts.YES_NO_CANCEL_OPTION, (controller, action) -> {
+            //if(action==MessageAlerts.CLOSED_OPTION){
+            //    controller.consume();
+           //     System.out.println("User press yes");
+          //  }
+          //   });
+            MessageAlerts.getInstance().showMessage("Data Saving Failure", "Oops! We encountered an issue while attempting to save your data. Please try again later or contact support for assistance. Apologies for any inconvenience caused.", MessageAlerts.MessageType.ERROR,MessageAlerts.OK_CANCEL_OPTION,null);
         });
         add(cmd);
     }

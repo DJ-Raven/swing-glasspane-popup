@@ -203,7 +203,7 @@ public class SimpleAlerts extends GlassPaneChild {
 
 
         private JPanel createActionButton(int option, Color color) {
-            JPanel panel = new JPanel(new MigLayout("insets 3,center,gapx 15", "center"));
+            JPanel panel = new JPanel(new MigLayout("insets 3,center,gapx 15", "[90,fill]"));
             switch (option) {
                 case MessageAlerts.OK_CANCEL_OPTION:
                     panel.add(createButton("Cancel", null, MessageAlerts.CANCEL_OPTION));
@@ -228,7 +228,7 @@ public class SimpleAlerts extends GlassPaneChild {
                     "innerFocusWidth:0;" +
                     "arc:10;" +
                     "font:+1;" +
-                    "margin:5,35,5,35;" +
+                    "margin:5,5,5,5;" +
                     "foreground:" + (color == null ? "null" : "#F0F0F0") + ";" +
                     "arc:999");
             if (color != null) {

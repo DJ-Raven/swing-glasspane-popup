@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7135e20-de9c-4e2f-8094-d0cf5536bd5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jar library/swing-glasspane-popup-1.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/AlertsOption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/MessageAlerts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/ShapeGenerator.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/alerts/SimpleAlerts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/Drawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/component/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/component/PopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/DrawerOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/DrawerOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/DrawerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/drawer/component/SimpleDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/drawer/component/SimpleDrawerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPanePopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/raven/popup/GlassPanePopup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/Demo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/DemoAlerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/MyDrawerBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,26 +52,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/java/raven/swing/animator&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3586207&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "D:/Raven/youtube/glasspane popup/swing glasspane popup/swing-glasspane-popup/src/main/resources/raven/alerts/icon",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3586207",
+    "settings.editor.selected.configurable": "MavenSettings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
       <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\java\raven\swing\animator" />
       <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\effect" />
       <recent name="D:\Raven\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
-      <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\main\resources\raven\alerts\icon" />
       <recent name="D:\Raven\youtube\glasspane popup\swing glasspane popup\swing-glasspane-popup\src\test\resources\image" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -153,11 +159,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.swing-glasspane-popup [package]" />
         <item itemvalue="Application.DemoAlerts" />
         <item itemvalue="Application.Demo" />
         <item itemvalue="Application.TestSampleMessage" />
         <item itemvalue="Application.TestAnimation" />
-        <item itemvalue="Maven.swing-glasspane-popup [package]" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +188,8 @@
       <workItem from="1700169361978" duration="3184000" />
       <workItem from="1700493533571" duration="75000" />
       <workItem from="1700493988140" duration="11876000" />
-      <workItem from="1700581088567" duration="4180000" />
+      <workItem from="1700581088567" duration="4243000" />
+      <workItem from="1700913430353" duration="5015000" />
     </task>
     <servers />
   </component>

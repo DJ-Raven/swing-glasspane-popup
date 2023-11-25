@@ -13,4 +13,6 @@ public interface DrawerBuilder {
     public Component getMenu();
 
     public Component getFooter();
+
+    public int getDrawerWidth();
 }

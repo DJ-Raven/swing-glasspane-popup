@@ -81,7 +81,7 @@ public class AlertsOption {
             };
             return getDefaultOption("raven/alerts/icon/error.svg", Color.decode("#ef4444"), effects);
         } else {
-            return getDefaultOption("raven/alerts/icon/question.svg", null);
+            return getDefaultOption("raven/alerts/icon/information.svg", null);
         }
     }
 

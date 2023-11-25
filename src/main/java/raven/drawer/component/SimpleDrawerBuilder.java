@@ -45,6 +45,11 @@ public abstract class SimpleDrawerBuilder implements DrawerBuilder {
         return footer;
     }
 
+    @Override
+    public int getDrawerWidth() {
+        return 275;
+    }
+
     public void build(DrawerPanel drawerPanel) {
 
     }

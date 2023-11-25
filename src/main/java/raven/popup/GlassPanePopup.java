@@ -168,6 +168,31 @@ public class GlassPanePopup {
         }
     }
 
+    public static boolean isShowing(String name) {
+        boolean act = false;
+        for (Component com : instance.layerPane.getComponents()) {
+            if (com.getName() != null && com.getName().equals(name)) {
+                act = true;
+                break;
+            }
+        }
+        return act;
+    }
+
+    public static boolean isShowing(Component component) {
+        boolean act = false;
+        for (Component com : instance.layerPane.getComponents()) {
+            if (com instanceof GlassPopup) {
+                GlassPopup popup = (GlassPopup) com;
+                if (popup.getComponent() == component) {
+                    act = true;
+                    break;
+                }
+            }
+        }
+        return act;
+    }
+
     public static int getPopupCount() {
         return instance.layerPane.getComponentCount();
     }

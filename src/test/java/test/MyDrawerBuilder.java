@@ -93,4 +93,9 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         // header.putClientProperty(FlatClientProperties.STYLE,"" +
         //        "background:#E36E1D");
     }
+
+    @Override
+    public int getDrawerWidth() {
+        return 275;
+    }
 }
