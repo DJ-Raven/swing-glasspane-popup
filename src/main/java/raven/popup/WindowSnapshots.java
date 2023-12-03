@@ -6,7 +6,8 @@ import java.awt.image.VolatileImage;
 
 public class WindowSnapshots {
 
-    private final JFrame frame;
+    private JFrame frame;
+    private JDialog dialog;
 
     private JComponent snapshotLayer;
     private boolean inShowSnapshot;
@@ -16,15 +17,19 @@ public class WindowSnapshots {
         this.frame = frame;
     }
 
+    public WindowSnapshots(JDialog dialog) {
+        this.dialog = dialog;
+    }
+
     public void createSnapshot() {
         if (inShowSnapshot) {
             return;
         }
         inShowSnapshot = true;
-        if (frame.isShowing()) {
-            VolatileImage snapshot = frame.createVolatileImage(frame.getWidth(), frame.getHeight());
+        if ((frame != null && frame.isShowing()) || (dialog != null && dialog.isShowing())) {
+            VolatileImage snapshot = frame != null ? frame.createVolatileImage(frame.getWidth(), frame.getHeight()) : dialog.createVolatileImage(dialog.getWidth(), dialog.getHeight());
             if (snapshot != null) {
-                JLayeredPane layeredPane = frame.getLayeredPane();
+                JLayeredPane layeredPane = frame != null ? frame.getLayeredPane() : dialog.getLayeredPane();
                 layeredPane.paint(snapshot.getGraphics());
                 snapshotLayer = new JComponent() {
                     @Override
@@ -48,7 +53,11 @@ public class WindowSnapshots {
     }
 
     public void removeSnapshot() {
-        frame.getLayeredPane().remove(snapshotLayer);
+        if (frame != null) {
+            frame.getLayeredPane().remove(snapshotLayer);
+        } else {
+            dialog.getLayeredPane().remove(snapshotLayer);
+        }
         inShowSnapshot = false;
     }
 }
