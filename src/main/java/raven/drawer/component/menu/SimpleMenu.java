@@ -1,10 +1,10 @@
 package raven.drawer.component.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.ColorFunctions;
 import com.formdev.flatlaf.util.UIScale;
+import raven.utils.FlatLafStyleUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +26,9 @@ public class SimpleMenu extends JPanel {
 
     private void init() {
         setLayout(new MenuLayout());
+        if (simpleMenuOption.simpleMenuStyle != null) {
+            simpleMenuOption.simpleMenuStyle.styleMenu(this);
+        }
         buildMenu();
     }
 
@@ -83,14 +86,17 @@ public class SimpleMenu extends JPanel {
             }
         }
         button.setHorizontalAlignment(JButton.LEADING);
-        button.putClientProperty(FlatClientProperties.STYLE, "" +
+        if (simpleMenuOption.simpleMenuStyle != null) {
+            simpleMenuOption.simpleMenuStyle.styleMenuItem(button, index);
+        }
+        FlatLafStyleUtils.appendStyleIfAbsent(button, "" +
                 "arc:0;" +
                 "margin:6,20,6,20;" +
                 "borderWidth:0;" +
                 "focusWidth:0;" +
                 "innerFocusWidth:0;" +
                 "background:null;" +
-                "iconTextGap:5");
+                "iconTextGap:5;");
         return button;
     }
 
@@ -158,7 +164,10 @@ public class SimpleMenu extends JPanel {
 
     protected Component createLabel(String name) {
         JLabel label = new JLabel(name);
-        label.putClientProperty(FlatClientProperties.STYLE, "" +
+        if (simpleMenuOption.simpleMenuStyle != null) {
+            simpleMenuOption.simpleMenuStyle.styleLabel(label);
+        }
+        FlatLafStyleUtils.appendStyleIfAbsent(label, "" +
                 "border:8,10,8,10;" +
                 "[light]foreground:lighten($Label.foreground,30%);" +
                 "[dark]foreground:darken($Label.foreground,30%)");
@@ -231,8 +240,15 @@ public class SimpleMenu extends JPanel {
         protected JButton createSubMenuItem(String name, int index, int gap) {
             JButton button = new JButton(name);
             button.setHorizontalAlignment(JButton.LEADING);
-            button.putClientProperty(FlatClientProperties.STYLE, "" +
-                    "border:7," + (gap + 25) + ",7,20;" +
+            if (simpleMenuOption.simpleMenuStyle != null) {
+                simpleMenuOption.simpleMenuStyle.styleSubMenuItem(button, this.index, index);
+            }
+            FlatLafStyleUtils.appendStyleIfAbsent(button, "" +
+                    "arc:0;" +
+                    "margin:7," + (gap + 25) + ",7," + (gap + 25) + ";" +
+                    "borderWidth:0;" +
+                    "focusWidth:0;" +
+                    "innerFocusWidth:0;" +
                     "background:null");
             return button;
         }
@@ -242,6 +258,7 @@ public class SimpleMenu extends JPanel {
             super.paintChildren(g);
             if (getComponentCount() > 0) {
                 boolean ltr = getComponentOrientation().isLeftToRight();
+                Color foreground = getComponent(0).getForeground();
                 int menuHeight = getComponent(0).getHeight();
                 int width = getWidth();
                 int height = getHeight();
@@ -261,7 +278,7 @@ public class SimpleMenu extends JPanel {
                     int y = com.getY() + (com.getHeight() / 2);
                     p.append(createCurve(round, x, y, ltr), false);
                 }
-                Color color = FlatLaf.isLafDark() ? ColorFunctions.darken(getForeground(), 0.6f) : ColorFunctions.lighten(getForeground(), 0.6f);
+                Color color = ColorFunctions.mix(getBackground(), foreground, 0.7f);
                 g2.setColor(color);
                 g2.setStroke(new BasicStroke(UIScale.scale(1f)));
                 g2.draw(p);

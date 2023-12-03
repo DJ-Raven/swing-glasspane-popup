@@ -1,7 +1,7 @@
 package raven.drawer.component.header;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
+import raven.utils.FlatLafStyleUtils;
 
 import javax.swing.*;
 
@@ -16,14 +16,21 @@ public class SimpleHeader extends JPanel {
 
     private void init() {
         setLayout(new MigLayout("wrap,insets 10 20 5 20,fill,gap 3"));
-        putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:null");
         profile = new JLabel(simpleHeaderData.icon);
-        profile.putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:$Component.borderColor");
         labelTitle = new JLabel(simpleHeaderData.title);
         labelDescription = new JLabel(simpleHeaderData.description);
-        labelDescription.putClientProperty(FlatClientProperties.STYLE, "" +
+
+        if (simpleHeaderData.simpleHeaderStyle != null) {
+            simpleHeaderData.simpleHeaderStyle.styleHeader(this);
+            simpleHeaderData.simpleHeaderStyle.styleProfile(profile);
+            simpleHeaderData.simpleHeaderStyle.styleTitle(labelTitle);
+            simpleHeaderData.simpleHeaderStyle.styleDescription(labelDescription);
+        }
+        FlatLafStyleUtils.appendStyleIfAbsent(this, "" +
+                "background:null");
+        FlatLafStyleUtils.appendStyleIfAbsent(profile, "" +
+                "background:$Component.borderColor");
+        FlatLafStyleUtils.appendStyleIfAbsent(labelDescription, "" +
                 "font:-1;" +
                 "[light]foreground:lighten(@foreground,30%);" +
                 "[dark]foreground:darken(@foreground,30%)");

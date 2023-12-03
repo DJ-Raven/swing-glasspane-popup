@@ -10,6 +10,7 @@ public class SimpleMenuOption {
 
     protected List<MenuEvent> events = new ArrayList<>();
     protected MenuValidation menuValidation = new MenuValidation();
+    protected SimpleMenuStyle simpleMenuStyle;
     protected String menus[][];
     protected String icons[];
     protected float iconScale = 1f;
@@ -43,6 +44,11 @@ public class SimpleMenuOption {
 
     public SimpleMenuOption setMenuValidation(MenuValidation menuValidation) {
         this.menuValidation = menuValidation;
+        return this;
+    }
+
+    public SimpleMenuOption setMenuStyle(SimpleMenuStyle simpleMenuStyle) {
+        this.simpleMenuStyle = simpleMenuStyle;
         return this;
     }
 

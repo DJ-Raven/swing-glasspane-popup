@@ -8,6 +8,8 @@ public class SimpleHeaderData {
     protected String title;
     protected String description;
 
+    protected SimpleHeaderStyle simpleHeaderStyle;
+
     public SimpleHeaderData setIcon(Icon icon) {
         this.icon = icon;
         return this;
@@ -20,6 +22,11 @@ public class SimpleHeaderData {
 
     public SimpleHeaderData setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public SimpleHeaderData setHeaderStyle(SimpleHeaderStyle simpleHeaderStyle) {
+        this.simpleHeaderStyle = simpleHeaderStyle;
         return this;
     }
 }
