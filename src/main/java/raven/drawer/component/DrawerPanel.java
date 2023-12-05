@@ -1,11 +1,7 @@
 package raven.drawer.component;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
 import raven.popup.component.GlassPaneChild;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class DrawerPanel extends GlassPaneChild {
 
@@ -28,30 +24,13 @@ public class DrawerPanel extends GlassPaneChild {
         }
         if (drawerBuilder.getMenu() != null) {
             layoutRow += "[fill]";
-            add(createScroll(drawerBuilder.getMenu()));
+            add(drawerBuilder.getMenu());
         }
         if (drawerBuilder.getFooter() != null) {
             layoutRow += "[grow 0]";
             add(drawerBuilder.getFooter());
         }
         setLayout(new MigLayout("wrap,insets 0,fill", "fill", layoutRow));
-    }
-
-    protected JScrollPane createScroll(Component component) {
-        JScrollPane scroll = new JScrollPane(component);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:null");
-        scroll.getVerticalScrollBar().setUnitIncrement(10);
-        scroll.getHorizontalScrollBar().setUnitIncrement(10);
-        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, "" +
-                "width:9;" +
-                "trackArc:999;" +
-                "thumbInsets:0,3,0,3;" +
-                "trackInsets:0,3,0,3;" +
-                "background:null");
-        scroll.setBorder(BorderFactory.createEmptyBorder());
-        return scroll;
     }
 
     public DrawerBuilder getDrawerBuilder() {

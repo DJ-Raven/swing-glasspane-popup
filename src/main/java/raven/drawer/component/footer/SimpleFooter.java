@@ -1,7 +1,7 @@
 package raven.drawer.component.footer;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
+import raven.utils.FlatLafStyleUtils;
 
 import javax.swing.*;
 
@@ -16,14 +16,22 @@ public class SimpleFooter extends JPanel {
 
     private void init() {
         setLayout(new MigLayout("wrap,insets 5 20 10 20,fill,gap 3"));
-        putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:null");
         labelTitle = new JLabel(simpleFooterData.title);
         labelDescription = new JLabel(simpleFooterData.description);
-        labelDescription.putClientProperty(FlatClientProperties.STYLE, "" +
+
+        if (simpleFooterData.simpleFooterStyle != null) {
+            simpleFooterData.simpleFooterStyle.styleFooter(this);
+            simpleFooterData.simpleFooterStyle.styleTitle(labelTitle);
+            simpleFooterData.simpleFooterStyle.styleDescription(labelDescription);
+        }
+
+        FlatLafStyleUtils.appendStyleIfAbsent(this, "" +
+                "background:null");
+        FlatLafStyleUtils.appendStyleIfAbsent(labelDescription, "" +
                 "font:-1;" +
                 "[light]foreground:lighten(@foreground,30%);" +
                 "[dark]foreground:darken(@foreground,30%)");
+
         add(labelTitle);
         add(labelDescription);
     }
