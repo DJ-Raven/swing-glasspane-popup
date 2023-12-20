@@ -49,7 +49,7 @@ public class ComponentLayer extends JPanel {
     }
 
     private void initAnimator() {
-        animator = new Animator(250, new Animator.TimingTarget() {
+        animator = new Animator(3500, new Animator.TimingTarget() {
 
             private boolean layoutChang;
 
@@ -87,7 +87,7 @@ public class ComponentLayer extends JPanel {
                 }
             }
         });
-        animator.setInterpolator(CubicBezierEasing.EASE_IN_OUT);
+        animator.setInterpolator(CubicBezierEasing.EASE);
     }
 
     private void startAnimate() {
@@ -130,6 +130,9 @@ public class ComponentLayer extends JPanel {
         remove(this.component);
         add(component);
         popupLayout.snapshotLayout(true);
+        component.revalidate();
+        component.doLayout();
+
         startAnimate();
     }
 
@@ -139,16 +142,9 @@ public class ComponentLayer extends JPanel {
             animator.stop();
         }
         simpleSnapshot = true;
-        revalidate();
-        if (component.isVisible()) {
-            image = ComponentImageUtils.createImage(component, component.getRoundBorder());
-            component.setVisible(false);
-        } else {
-            EventQueue.invokeLater(() -> {
-                image = ComponentImageUtils.createImage(component, component.getRoundBorder());
-                component.setVisible(false);
-            });
-        }
+        doLayout();
+        image = ComponentImageUtils.createImage(component, component.getRoundBorder());
+        component.setVisible(false);
     }
 
     public void hideSnapshot() {
@@ -229,7 +225,7 @@ public class ComponentLayer extends JPanel {
 
         public void snapshotLayout(boolean snapshotLayout) {
             this.snapshotLayout = snapshotLayout;
-            revalidate();
+            doLayout();
         }
 
         public void set(Dimension from, Dimension target) {
@@ -277,7 +273,8 @@ public class ComponentLayer extends JPanel {
                 int count = parent.getComponentCount();
                 for (int i = 0; i < count; i++) {
                     Component component = parent.getComponent(i);
-                    component.setBounds(0, 0, width, height);
+                    int h = Math.max(height, component.getPreferredSize().height);
+                    component.setBounds(0, 0, width, h);
                 }
             }
         }
