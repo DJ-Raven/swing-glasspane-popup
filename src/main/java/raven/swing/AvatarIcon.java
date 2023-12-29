@@ -14,6 +14,7 @@ public class AvatarIcon implements Icon {
 
     private String filename;
     private URL location;
+    private Icon icon;
     private Image image;
     private int round;
     private int border;
@@ -39,6 +40,13 @@ public class AvatarIcon implements Icon {
         this.round = round;
     }
 
+    public AvatarIcon(Icon icon, int width, int height, int round) {
+        this.icon = icon;
+        this.width = width;
+        this.height = height;
+        this.round = round;
+    }
+
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         updateImage();
@@ -51,7 +59,7 @@ public class AvatarIcon implements Icon {
     }
 
     private void updateImage() {
-        if ((filename != null || location != null) && (image == null || border != oldBorder)) {
+        if ((filename != null || location != null || icon != null) && (image == null || border != oldBorder)) {
             imageWidth = UIScale.scale(width);
             imageHeight = UIScale.scale(height);
             oldBorder = border;
@@ -59,8 +67,10 @@ public class AvatarIcon implements Icon {
             ImageIcon icon;
             if (filename != null) {
                 icon = new ImageIcon(filename);
-            } else {
+            } else if (location != null) {
                 icon = new ImageIcon(location);
+            } else {
+                icon = (ImageIcon) this.icon;
             }
             image = resizeImage(icon.getImage(), imageWidth, imageHeight, b);
         }
