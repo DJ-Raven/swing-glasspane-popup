@@ -11,13 +11,13 @@ public class SimpleMenuOption {
     protected List<MenuEvent> events = new ArrayList<>();
     protected MenuValidation menuValidation = new MenuValidation();
     protected SimpleMenuStyle simpleMenuStyle;
-    protected String menus[][];
+    protected Object menus[];
     protected String icons[];
     protected float iconScale = 1f;
     protected String baseIconPath;
     protected boolean menuItemAutoSelect = true;
 
-    public SimpleMenuOption setMenus(String menus[][]) {
+    public SimpleMenuOption setMenus(Object menus[]) {
         this.menus = menus;
         return this;
     }

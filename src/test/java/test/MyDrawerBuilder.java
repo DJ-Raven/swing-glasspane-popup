@@ -64,20 +64,20 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     @Override
     public SimpleMenuOption getSimpleMenuOption() {
 
-        String menus[][] = {
-                {"~MAIN~"},
-                {"Dashboard"},
-                {"~WEB APP~"},
-                {"Email", "Inbox", "Read", "Compost"},
-                {"Chat"},
-                {"Calendar"},
-                {"~COMPONENT~"},
-                {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-                {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-                {"~OTHER~"},
-                {"Charts", "Apex", "Flot", "Sparkline"},
-                {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-                {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+        Object menus[] = {
+                "~MAIN~",
+                "Dashboard",
+                "~WEB APP~",
+                new Object[]{"Email", "Inbox", new Object[]{"Read", "Read 2", new Object[]{"Item 1", "Item 2", "Item 300000000000000000000 1"}, "Read 3"}, "Compost"},
+                "Chat",
+                "Calendar",
+                "~COMPONENT~",
+                new Object[]{"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
+                new Object[]{"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
+                "~OTHER~",
+                new Object[]{"Charts", "Apex", "Flot", "Sparkline"},
+                new Object[]{"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
+                new Object[]{"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
         };
         String icons[] = {
                 "dashboard.svg",
@@ -135,6 +135,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         });
 
+        /*
         simpleMenuOption.setMenuValidation(new MenuValidation() {
             @Override
             public boolean menuValidation(int index, int subIndex) {
@@ -147,7 +148,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                 }
             }
         });
-
+         */
 
         simpleMenuOption.setMenus(menus)
                 .setIcons(icons)

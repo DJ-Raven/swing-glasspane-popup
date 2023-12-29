@@ -33,7 +33,7 @@ public class Demo extends JFrame {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        FlatMacLightLaf.setup();
+        FlatMacDarkLaf.setup();
         EventQueue.invokeLater(() -> new Demo().setVisible(true));
     }
 }
