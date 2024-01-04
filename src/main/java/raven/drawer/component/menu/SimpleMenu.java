@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.ColorFunctions;
 import com.formdev.flatlaf.util.UIScale;
+import raven.popup.GlassPanePopup;
 import raven.utils.FlatLafStyleUtils;
 
 import javax.swing.*;
@@ -149,7 +150,7 @@ public class SimpleMenu extends JPanel {
             if (simpleMenuOption.menuValidation.removeLabelWhenEmptyMenu) {
                 boolean fondMenu = false;
                 for (int i = labelIndex + 1; i < simpleMenuOption.menus.length; i++) {
-                    String label = null;//checkLabel(simpleMenuOption.menus[i]);
+                    String label = checkLabel(simpleMenuOption.menus[i].toString());
                     if (label == null) {
                         if (simpleMenuOption.menuValidation.menuValidation(menuIndex, 0)) {
                             fondMenu = true;
@@ -268,9 +269,11 @@ public class SimpleMenu extends JPanel {
             if (simpleMenuOption.simpleMenuStyle != null) {
                 simpleMenuOption.simpleMenuStyle.styleSubMenuItem(button, this.index, index);
             }
+            boolean ltr = GlassPanePopup.getMainFrame().getComponentOrientation().isLeftToRight();
+            String margin = ltr ? ("7," + (gap + 25) + ",7,30") : ("7,30,7," + (gap + 25));
             FlatLafStyleUtils.appendStyleIfAbsent(button, "" +
                     "arc:0;" +
-                    "margin:7," + (gap + 25) + ",7," + (gap + 25) + ";" +
+                    "margin:" + margin + ";" +
                     "borderWidth:0;" +
                     "focusWidth:0;" +
                     "innerFocusWidth:0;" +
