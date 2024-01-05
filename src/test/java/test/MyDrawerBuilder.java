@@ -9,6 +9,8 @@ import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.header.SimpleHeaderStyle;
 import raven.drawer.component.menu.*;
 import raven.drawer.component.SimpleDrawerBuilder;
+import raven.drawer.component.menu.data.Item;
+import raven.drawer.component.menu.data.MenuItem;
 import raven.swing.AvatarIcon;
 
 import javax.swing.*;
@@ -64,32 +66,60 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     @Override
     public SimpleMenuOption getSimpleMenuOption() {
 
-        Object menus[] = {
-                "~MAIN~",
-                "Dashboard",
-                "~WEB APP~",
-                new Object[]{"Email", "Inbox", new Object[]{"Read", "Read 2", new Object[]{"Item 1", "Item 2", "Item 300000000000000000000 1"}, "Read 3"}, "Compost"},
-                "Chat",
-                "Calendar",
-                "~COMPONENT~",
-                new Object[]{"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-                new Object[]{"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-                "~OTHER~",
-                new Object[]{"Charts", "Apex", "Flot", "Sparkline"},
-                new Object[]{"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-                new Object[]{"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+        MenuItem items[] = new MenuItem[]{
+                new Item.Label("MAIN"),
+                new Item("Dashboard", "dashboard.svg"),
+                new Item.Label("WEB APP"),
+                new Item("Email", "email.svg")
+                        .subMenu("Inbox")
+                        .subMenu(
+                                new Item("Group Read")
+                                        .subMenu("Read 1")
+                                        .subMenu("Read 2")
+                                        .subMenu(
+                                                new Item("Group Item")
+                                                        .subMenu("Item 1")
+                                                        .subMenu("Item 2")
+                                                        .subMenu("Item 3")
+                                                        .subMenu("Item 4")
+                                                        .subMenu("Item 5")
+                                                        .subMenu("Item 6")
+                                        )
+                                        .subMenu("Read 3")
+                                        .subMenu("Read 4")
+                                        .subMenu("Read 5")
+                        )
+                        .subMenu("Compost"),
+                new Item("Chat", "chat.svg"),
+                new Item("Calendar", "calendar.svg"),
+                new Item.Label("COMPONENT"),
+                new Item("Advanced UI", "ui.svg")
+                        .subMenu("Cropper")
+                        .subMenu("Owl Carousel")
+                        .subMenu("Sweet Alert"),
+                new Item("Forms", "forms.svg")
+                        .subMenu("Basic Elements")
+                        .subMenu("Advanced Elements")
+                        .subMenu("SEditors")
+                        .subMenu("Wizard"),
+                new Item.Label("OTHER"),
+                new Item("Charts", "chart.svg")
+                        .subMenu("Apex")
+                        .subMenu("Flot")
+                        .subMenu("Sparkline"),
+                new Item("Icons", "icon.svg")
+                        .subMenu("Feather Icons")
+                        .subMenu("Flag Icons")
+                        .subMenu("Mdi Icons"),
+                new Item("Special Pages", "page.svg")
+                        .subMenu("Blank page")
+                        .subMenu("Faq")
+                        .subMenu("Invoice")
+                        .subMenu("Profile")
+                        .subMenu("Pricing")
+                        .subMenu("Timeline")
         };
-        String icons[] = {
-                "dashboard.svg",
-                "email.svg",
-                "chat.svg",
-                "calendar.svg",
-                "ui.svg",
-                "forms.svg",
-                "chart.svg",
-                "icon.svg",
-                "page.svg",
-        };
+
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
             @Override
             public Icon buildMenuIcon(String path, float scale) {
@@ -150,10 +180,11 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         });
          */
 
-        simpleMenuOption.setMenus(menus)
-                .setIcons(icons)
+        simpleMenuOption.setMenus(items)
                 .setBaseIconPath("icon")
-                .setIconScale(0.45f);
+                // Use 0.45f for first menu level
+                // Use 0.4f for second menu level as submenu
+                .setIconScale(0.45f, 0.4f, 0.3f);
         return simpleMenuOption;
     }
 

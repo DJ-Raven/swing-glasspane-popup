@@ -1,6 +1,7 @@
 package raven.drawer.component.menu;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import raven.drawer.component.menu.data.MenuItem;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -11,23 +12,18 @@ public class SimpleMenuOption {
     protected List<MenuEvent> events = new ArrayList<>();
     protected MenuValidation menuValidation = new MenuValidation();
     protected SimpleMenuStyle simpleMenuStyle;
-    protected Object menus[];
-    protected String icons[];
-    protected float iconScale = 1f;
+    protected MenuItem menus[];
+    protected float iconScale[] = {1f};
+
     protected String baseIconPath;
     protected boolean menuItemAutoSelect = true;
 
-    public SimpleMenuOption setMenus(Object menus[]) {
+    public SimpleMenuOption setMenus(MenuItem menus[]) {
         this.menus = menus;
         return this;
     }
 
-    public SimpleMenuOption setIcons(String icons[]) {
-        this.icons = icons;
-        return this;
-    }
-
-    public SimpleMenuOption setIconScale(float iconScale) {
+    public SimpleMenuOption setIconScale(float... iconScale) {
         this.iconScale = iconScale;
         return this;
     }
