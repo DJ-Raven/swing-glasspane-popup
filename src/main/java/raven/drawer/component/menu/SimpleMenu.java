@@ -12,6 +12,7 @@ import raven.utils.FlatLafStyleUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
+import java.util.Arrays;
 
 public class SimpleMenu extends JPanel {
 
@@ -36,7 +37,7 @@ public class SimpleMenu extends JPanel {
     }
 
     private void buildMenu() {
-        MenuItem menus[] = simpleMenuOption.menus;
+        MenuItem[] menus = simpleMenuOption.menus;
         if (menus != null) {
             int index = 0;
             int validationIndex = -1;
@@ -44,21 +45,24 @@ public class SimpleMenu extends JPanel {
                 MenuItem menuItem = menus[i];
                 if (menuItem.isMenu()) {
                     Item item = (Item) menuItem;
+                    int[] arrIndex = {index};
                     if (item.isSubmenuAble()) {
                         // Create submenu
-                        boolean validation = simpleMenuOption.menuValidation.menuValidation(++validationIndex, 0);
+                        int[] arrValidationIndex = {++validationIndex};
+                        boolean validation = simpleMenuOption.menuValidation.menuValidation(copyArray(arrValidationIndex));
                         if (validation) {
-                            add(createSubmenuItem(item, index, validationIndex, 0));
+                            add(createSubmenuItem(item, arrIndex, arrValidationIndex, 0));
                         }
                         if (validation || simpleMenuOption.menuValidation.keepMenuValidationIndex) {
                             index++;
                         }
                     } else {
                         // Create single menu item
-                        boolean validation = simpleMenuOption.menuValidation.menuValidation(++validationIndex, 0);
+                        int[] arrValidationIndex = {++validationIndex};
+                        boolean validation = simpleMenuOption.menuValidation.menuValidation(arrValidationIndex);
                         if (validation) {
-                            JButton button = createMenuItem(item.getName(), item.getIcon(), index, 0);
-                            applyMenuEvent(button, index, 0);
+                            JButton button = createMenuItem(item.getName(), item.getIcon(), arrIndex, 0);
+                            applyMenuEvent(button, arrIndex);
                             add(button);
                         }
                         if (validation || simpleMenuOption.menuValidation.keepMenuValidationIndex) {
@@ -74,6 +78,10 @@ public class SimpleMenu extends JPanel {
                 }
             }
         }
+    }
+
+    private int[] copyArray(int[] arr) {
+        return Arrays.copyOf(arr, arr.length);
     }
 
     private String getBasePath() {
@@ -103,7 +111,7 @@ public class SimpleMenu extends JPanel {
         }
     }
 
-    protected JButton createMenuItem(String name, String icon, int index, int menuLevel) {
+    protected JButton createMenuItem(String name, String icon, int[] index, int menuLevel) {
         JButton button = new JButton(name);
         Icon iconObject = getIcon(icon, menuLevel);
         if (iconObject != null) {
@@ -111,7 +119,7 @@ public class SimpleMenu extends JPanel {
         }
         button.setHorizontalAlignment(JButton.LEADING);
         if (simpleMenuOption.simpleMenuStyle != null) {
-            simpleMenuOption.simpleMenuStyle.styleMenuItem(button, index);
+            simpleMenuOption.simpleMenuStyle.styleMenuItem(button, copyArray(index));
         }
         FlatLafStyleUtils.appendStyleIfAbsent(button, "" +
                 "arc:0;" +
@@ -124,30 +132,30 @@ public class SimpleMenu extends JPanel {
         return button;
     }
 
-    protected void applyMenuEvent(JButton button, int index, int subIndex) {
+    protected void applyMenuEvent(JButton button, int[] index) {
         button.addActionListener(e -> {
-            MenuAction action = runEvent(index, subIndex);
+            MenuAction action = runEvent(index);
             if (action != null) {
-                //  Next update on action menu selected
+                // Next update on action menu selected
             }
         });
     }
 
-    private MenuAction runEvent(int index, int subIndex) {
+    private MenuAction runEvent(int[] index) {
         if (!simpleMenuOption.events.isEmpty()) {
             MenuAction action = new MenuAction();
             if (simpleMenuOption.menuItemAutoSelect) {
                 action.selected();
             }
             for (MenuEvent event : simpleMenuOption.events) {
-                event.selected(action, index, subIndex);
+                event.selected(action, copyArray(index));
             }
             return action;
         }
         return null;
     }
 
-    protected Component createSubmenuItem(Item menu, int index, int validationIndex, int menuLevel) {
+    protected Component createSubmenuItem(Item menu, int index[], int[] validationIndex, int menuLevel) {
         JPanel panelItem = new SubMenuItem(menu, index, validationIndex, menuLevel);
         return panelItem;
     }
@@ -159,7 +167,7 @@ public class SimpleMenu extends JPanel {
                 for (int i = labelIndex + 1; i < simpleMenuOption.menus.length; i++) {
                     MenuItem menuItem = simpleMenuOption.menus[i];
                     if (menuItem.isMenu()) {
-                        if (simpleMenuOption.menuValidation.menuValidation(menuIndex, 0)) {
+                        if (simpleMenuOption.menuValidation.menuValidation(new int[]{menuIndex})) {
                             fondMenu = true;
                             break;
                         }
@@ -200,15 +208,15 @@ public class SimpleMenu extends JPanel {
         private SubmenuLayout menuLayout;
         private boolean menuShow;
         private final Item menu;
-        private final int index;
-        private final int validationIndex;
+        private final int[] index;
+        private final int[] validationIndex;
         private int iconWidth;
 
         public void setAnimate(float animate) {
             menuLayout.setAnimate(animate);
         }
 
-        public SubMenuItem(Item menu, int index, int validationIndex, int menuLevel) {
+        public SubMenuItem(Item menu, int[] index, int[] validationIndex, int menuLevel) {
             this.menu = menu;
             this.index = index;
             this.validationIndex = validationIndex;
@@ -226,6 +234,7 @@ public class SimpleMenu extends JPanel {
             iconWidth = 22;
             int index = 0;
             int validationIndex = -1;
+            int nextMenuLevel = menuLevel + 1;
             // Create menu item
             JButton mainButton;
             if (menuLevel == 0) {
@@ -233,31 +242,27 @@ public class SimpleMenu extends JPanel {
                 mainButton = createMenuItem(menu.getName(), menu.getIcon(), this.index, menuLevel);
             } else {
                 int addSpace = menuLevel > 1 ? (menuLevel - 1) * levelSpace : 0;
-                /* need check menu index */
-                mainButton = createSubMenuItem(menu.getName(), menu.getIcon(), this.index, iconWidth + addSpace, menuLevel);
+                mainButton = createSubMenuItem(menu.getName(), this.index, iconWidth + addSpace);
             }
             if (mainButton.getIcon() != null) {
-                int w = UIScale.unscale(mainButton.getIcon().getIconWidth());
-                if (menuLevel == 0) {
-                    iconWidth = w;
-                } else {
-                    iconWidth = w;
-                }
+                iconWidth = UIScale.unscale(mainButton.getIcon().getIconWidth());
             }
             createMainMenuEvent(mainButton);
-            applyMenuEvent(mainButton, this.index, index);
+            applyMenuEvent(mainButton, this.index);
             add(mainButton);
             for (int i = 0; i < menu.getSubMenu().size(); i++) {
-                boolean validation = simpleMenuOption.menuValidation.menuValidation(this.validationIndex, ++validationIndex);
+                int[] arrIndex = createArrayIndex(this.index, index);
+                int[] arrValidationIndex = createArrayIndex(this.validationIndex, ++validationIndex);
+                boolean validation = simpleMenuOption.menuValidation.menuValidation(copyArray(arrValidationIndex));
                 if (validation) {
                     Item item = menu.getSubMenu().get(i);
                     if (item.isSubmenuAble()) {
-                        add(createSubmenuItem(item, index, validationIndex, menuLevel + 1));
+                        add(createSubmenuItem(item, arrIndex, arrValidationIndex, nextMenuLevel));
                     } else {
-                        //  Create single menu item
+                        // Create single menu item
                         int addSpace = menuLevel * levelSpace;
-                        JButton button = createSubMenuItem(item.getName(), item.getIcon(), index, iconWidth + addSpace, menuLevel + 1);
-                        applyMenuEvent(button, this.index, index);
+                        JButton button = createSubMenuItem(item.getName(), arrIndex, iconWidth + addSpace);
+                        applyMenuEvent(button, arrIndex);
                         add(button);
                     }
                 }
@@ -265,6 +270,15 @@ public class SimpleMenu extends JPanel {
                     index++;
                 }
             }
+        }
+
+        private int[] createArrayIndex(int[] index, int subIndex) {
+            int[] newArr = new int[index.length + 1];
+            for (int i = 0; i < index.length; i++) {
+                newArr[i] = index[i];
+            }
+            newArr[newArr.length - 1] = subIndex;
+            return newArr;
         }
 
         private void createMainMenuEvent(JButton button) {
@@ -275,15 +289,11 @@ public class SimpleMenu extends JPanel {
         }
 
 
-        protected JButton createSubMenuItem(String name, String icon, int index, int gap, int menuLevel) {
+        protected JButton createSubMenuItem(String name, int[] index, int gap) {
             JButton button = new JButton(name);
-            Icon iconObject = getIcon(icon, menuLevel);
-            if (iconObject != null) {
-                button.setIcon(iconObject);
-            }
             button.setHorizontalAlignment(JButton.LEADING);
             if (simpleMenuOption.simpleMenuStyle != null) {
-                simpleMenuOption.simpleMenuStyle.styleSubMenuItem(button, this.index, index);
+                simpleMenuOption.simpleMenuStyle.styleMenuItem(button, copyArray(index));
             }
             boolean ltr = GlassPanePopup.getMainFrame().getComponentOrientation().isLeftToRight();
             String margin = ltr ? ("7," + (gap + 25) + ",7,30") : ("7,30,7," + (gap + 25));
@@ -308,7 +318,7 @@ public class SimpleMenu extends JPanel {
                 int height = getHeight();
                 Graphics2D g2 = (Graphics2D) g.create();
                 FlatUIUtils.setRenderingHints(g2);
-                //  Create submenu line
+                // Create submenu line
                 int last = getLastLocation();
                 int round = UIScale.scale(8);
                 int gap = UIScale.scale((20 + (iconWidth / 2)) + (levelSpace * menuLevel));
@@ -331,7 +341,7 @@ public class SimpleMenu extends JPanel {
                 g2.setColor(color);
                 g2.setStroke(new BasicStroke(UIScale.scale(1f)));
                 g2.draw(p);
-                //  Create arrow
+                // Create arrow
                 paintArrow(g2, width, menuHeight, menuLayout.getAnimate(), ltr);
                 g2.dispose();
             }

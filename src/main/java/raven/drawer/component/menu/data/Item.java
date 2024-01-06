@@ -40,11 +40,6 @@ public class Item implements MenuItem {
         return this;
     }
 
-    public Item subMenu(String name, String icon) {
-        addSubMenu(new Item(name, icon));
-        return this;
-    }
-
     private void addSubMenu(Item item) {
         if (subMenu == null) {
             subMenu = new ArrayList<>();

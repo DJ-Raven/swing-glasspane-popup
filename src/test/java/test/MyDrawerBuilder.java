@@ -15,6 +15,7 @@ import raven.swing.AvatarIcon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -132,21 +133,14 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         };
         simpleMenuOption.addMenuEvent(new MenuEvent() {
             @Override
-            public void selected(MenuAction action, int index, int subIndex) {
-                System.out.println("Drawer menu selected " + index + " " + subIndex);
+            public void selected(MenuAction action, int[] index) {
+                System.out.println("Drawer menu selected " + Arrays.toString(index));
             }
         });
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
             @Override
-            public void styleMenuItem(JButton menu, int index) {
+            public void styleMenuItem(JButton menu, int[] index) {
                 menu.putClientProperty(FlatClientProperties.STYLE, "" +
-                        "[light]foreground:#FAFAFA;" +
-                        "arc:0");
-            }
-
-            @Override
-            public void styleSubMenuItem(JButton subMenu, int index, int subIndex) {
-                subMenu.putClientProperty(FlatClientProperties.STYLE, "" +
                         "[light]foreground:#FAFAFA;" +
                         "arc:0");
             }
@@ -165,26 +159,28 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         });
 
-        /*
+
         simpleMenuOption.setMenuValidation(new MenuValidation() {
             @Override
-            public boolean menuValidation(int index, int subIndex) {
-                if (index == 3) {
-                    return false;
-                } else if (index == 4 || index == 5) {
-                    return false;
-                } else {
-                    return true;
+            public boolean menuValidation(int[] index) {
+                if (index.length == 1) {
+                    // Hide Calendar
+                    if (index[0] == 3) {
+                        return false;
+                    }
+                } else if (index.length == 3) {
+                    //  Hide Read 4
+                    if (index[0] == 1 && index[1] == 1 && index[2] == 4) {
+                        return false;
+                    }
                 }
+                return true;
             }
         });
-         */
 
         simpleMenuOption.setMenus(items)
                 .setBaseIconPath("icon")
-                // Use 0.45f for first menu level
-                // Use 0.4f for second menu level as submenu
-                .setIconScale(0.45f, 0.4f, 0.3f);
+                .setIconScale(0.45f);
         return simpleMenuOption;
     }
 
