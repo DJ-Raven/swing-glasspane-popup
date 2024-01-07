@@ -203,6 +203,10 @@ public class GlassPanePopup {
         return instance.mainFrame;
     }
 
+    public static boolean isInit() {
+        return !(instance == null || instance.mainFrame == null);
+    }
+
     protected synchronized void removePopup(Component popup) {
         layerPane.remove(popup);
         if (layerPane.getComponentCount() == 0) {

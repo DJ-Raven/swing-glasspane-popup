@@ -295,7 +295,7 @@ public class SimpleMenu extends JPanel {
             if (simpleMenuOption.simpleMenuStyle != null) {
                 simpleMenuOption.simpleMenuStyle.styleMenuItem(button, copyArray(index));
             }
-            boolean ltr = GlassPanePopup.getMainFrame().getComponentOrientation().isLeftToRight();
+            boolean ltr = GlassPanePopup.isInit() == false || GlassPanePopup.getMainFrame().getComponentOrientation().isLeftToRight();
             String margin = ltr ? ("7," + (gap + 25) + ",7,30") : ("7,30,7," + (gap + 25));
             FlatLafStyleUtils.appendStyleIfAbsent(button, "" +
                     "arc:0;" +
