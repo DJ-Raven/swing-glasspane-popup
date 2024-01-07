@@ -1,8 +1,5 @@
 package raven.drawer.component.menu;
 
-import com.formdev.flatlaf.util.UIScale;
-import raven.drawer.DrawerOption;
-
 import java.awt.*;
 
 public class MenuLayout implements LayoutManager {
@@ -19,7 +16,7 @@ public class MenuLayout implements LayoutManager {
     public Dimension preferredLayoutSize(Container parent) {
         synchronized (parent.getTreeLock()) {
             Insets insets = parent.getInsets();
-            //  use parent width to avoid the issues right-to-left scroll pane
+            // Use parent width to avoid the issues right-to-left scroll pane
             int width = parent.getParent().getWidth();
             int height = insets.top + insets.bottom;
             int count = parent.getComponentCount();

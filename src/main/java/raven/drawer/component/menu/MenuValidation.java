@@ -14,7 +14,7 @@ public class MenuValidation {
         this.removeLabelWhenEmptyMenu = removeLabelWhenEmptyMenu;
     }
 
-    public boolean menuValidation(int index, int subIndex) {
+    public boolean menuValidation(int[] index) {
         return true;
     }
 

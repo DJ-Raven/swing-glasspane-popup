@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 public class GlassPanePopup {
 
     private static GlassPanePopup instance;
+    private JFrame mainFrame;
     protected WindowSnapshots windowSnapshots;
     protected JLayeredPane layerPane;
     protected Container contentPane;
@@ -50,6 +51,7 @@ public class GlassPanePopup {
 
     public static void install(JFrame frame) {
         instance = new GlassPanePopup();
+        instance.mainFrame = frame;
         instance.windowSnapshots = new WindowSnapshots(frame);
         instance.contentPane = frame.getContentPane();
         frame.setGlassPane(instance.layerPane);
@@ -195,6 +197,14 @@ public class GlassPanePopup {
 
     public static int getPopupCount() {
         return instance.layerPane.getComponentCount();
+    }
+
+    public static JFrame getMainFrame() {
+        return instance.mainFrame;
+    }
+
+    public static boolean isInit() {
+        return !(instance == null || instance.mainFrame == null);
     }
 
     protected synchronized void removePopup(Component popup) {

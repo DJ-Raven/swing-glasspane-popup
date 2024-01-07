@@ -78,7 +78,6 @@ public abstract class SimpleDrawerBuilder implements DrawerBuilder {
     }
 
     public void build(DrawerPanel drawerPanel) {
-
     }
 
     public void rebuildMenu() {

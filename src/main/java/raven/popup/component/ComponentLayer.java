@@ -4,6 +4,7 @@ import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;
 import com.formdev.flatlaf.util.UIScale;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,6 @@ public class ComponentLayer extends JPanel {
     private Image image;
 
     private Image nextImage;
-    private PopupLayout popupLayout;
     private Stack<GlassPaneChild> componentStack;
     private boolean push;
 
@@ -38,8 +38,8 @@ public class ComponentLayer extends JPanel {
     }
 
     private void init() {
-        popupLayout = new PopupLayout();
-        setLayout(popupLayout);
+        MigLayout layout = new MigLayout("insets 0,fill", "fill", "fill");
+        setLayout(layout);
         if (component.getRoundBorder() > 0) {
             setOpaque(false);
             component.setOpaque(false);
@@ -49,29 +49,17 @@ public class ComponentLayer extends JPanel {
     }
 
     private void initAnimator() {
-        animator = new Animator(250, new Animator.TimingTarget() {
-
-            private boolean layoutChang;
+        animator = new Animator(350, new Animator.TimingTarget() {
 
             @Override
             public void timingEvent(float v) {
                 animate = v;
-                if (layoutChang) {
-                    revalidate();
-                    repaint();
-                } else {
-                    repaint();
-                }
+                repaint();
             }
 
             @Override
             public void begin() {
                 nextImage = ComponentImageUtils.createImage(nextComponent);
-                popupLayout.snapshotLayout(false);
-                Dimension from = component.getPreferredSize();
-                Dimension target = nextComponent.getPreferredSize();
-                layoutChang = from.width != target.width || from.height != target.height;
-                popupLayout.set(from, target);
             }
 
             @Override
@@ -87,7 +75,7 @@ public class ComponentLayer extends JPanel {
                 }
             }
         });
-        animator.setInterpolator(CubicBezierEasing.EASE_IN_OUT);
+        animator.setInterpolator(CubicBezierEasing.EASE);
     }
 
     private void startAnimate() {
@@ -129,26 +117,18 @@ public class ComponentLayer extends JPanel {
         component.setVisible(false);
         remove(this.component);
         add(component);
-        popupLayout.snapshotLayout(true);
+        revalidate();
         startAnimate();
     }
-
 
     public void showSnapshot() {
         if (animator != null && animator.isRunning()) {
             animator.stop();
         }
         simpleSnapshot = true;
-        revalidate();
-        if (component.isVisible()) {
-            image = ComponentImageUtils.createImage(component, component.getRoundBorder());
-            component.setVisible(false);
-        } else {
-            EventQueue.invokeLater(() -> {
-                image = ComponentImageUtils.createImage(component, component.getRoundBorder());
-                component.setVisible(false);
-            });
-        }
+        doLayout();
+        image = ComponentImageUtils.createImage(component, component.getRoundBorder());
+        component.setVisible(false);
     }
 
     public void hideSnapshot() {
@@ -219,67 +199,5 @@ public class ComponentLayer extends JPanel {
 
     public GlassPaneChild getComponent() {
         return component;
-    }
-
-    private class PopupLayout implements LayoutManager {
-
-        private Dimension from;
-        private Dimension target;
-        private boolean snapshotLayout;
-
-        public void snapshotLayout(boolean snapshotLayout) {
-            this.snapshotLayout = snapshotLayout;
-            revalidate();
-        }
-
-        public void set(Dimension from, Dimension target) {
-            this.from = from;
-            this.target = target;
-        }
-
-        private Dimension getSize() {
-            double width = from.width + ((target.width - from.width) * animate);
-            double height = from.height + ((target.height - from.height) * animate);
-            return new Dimension((int) width, (int) height);
-        }
-
-        @Override
-        public void addLayoutComponent(String name, Component comp) {
-        }
-
-        @Override
-        public void removeLayoutComponent(Component comp) {
-        }
-
-        @Override
-        public Dimension preferredLayoutSize(Container parent) {
-            synchronized (parent.getTreeLock()) {
-                if (animate != 0) {
-                    return getSize();
-                } else {
-                    return component.getPreferredSize();
-                }
-            }
-        }
-
-        @Override
-        public Dimension minimumLayoutSize(Container parent) {
-            synchronized (parent.getTreeLock()) {
-                return new Dimension(0, 0);
-            }
-        }
-
-        @Override
-        public void layoutContainer(Container parent) {
-            synchronized (parent.getTreeLock()) {
-                int width = parent.getWidth();
-                int height = parent.getHeight();
-                int count = parent.getComponentCount();
-                for (int i = 0; i < count; i++) {
-                    Component component = parent.getComponent(i);
-                    component.setBounds(0, 0, width, height);
-                }
-            }
-        }
     }
 }

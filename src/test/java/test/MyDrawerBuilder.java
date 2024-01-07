@@ -9,10 +9,13 @@ import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.header.SimpleHeaderStyle;
 import raven.drawer.component.menu.*;
 import raven.drawer.component.SimpleDrawerBuilder;
+import raven.drawer.component.menu.data.Item;
+import raven.drawer.component.menu.data.MenuItem;
 import raven.swing.AvatarIcon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
@@ -64,32 +67,60 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
     @Override
     public SimpleMenuOption getSimpleMenuOption() {
 
-        String menus[][] = {
-                {"~MAIN~"},
-                {"Dashboard"},
-                {"~WEB APP~"},
-                {"Email", "Inbox", "Read", "Compost"},
-                {"Chat"},
-                {"Calendar"},
-                {"~COMPONENT~"},
-                {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-                {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-                {"~OTHER~"},
-                {"Charts", "Apex", "Flot", "Sparkline"},
-                {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-                {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+        MenuItem items[] = new MenuItem[]{
+                new Item.Label("MAIN"),
+                new Item("Dashboard", "dashboard.svg"),
+                new Item.Label("WEB APP"),
+                new Item("Email", "email.svg")
+                        .subMenu("Inbox")
+                        .subMenu(
+                                new Item("Group Read")
+                                        .subMenu("Read 1")
+                                        .subMenu("Read 2")
+                                        .subMenu(
+                                                new Item("Group Item")
+                                                        .subMenu("Item 1")
+                                                        .subMenu("Item 2")
+                                                        .subMenu("Item 3")
+                                                        .subMenu("Item 4")
+                                                        .subMenu("Item 5")
+                                                        .subMenu("Item 6")
+                                        )
+                                        .subMenu("Read 3")
+                                        .subMenu("Read 4")
+                                        .subMenu("Read 5")
+                        )
+                        .subMenu("Compost"),
+                new Item("Chat", "chat.svg"),
+                new Item("Calendar", "calendar.svg"),
+                new Item.Label("COMPONENT"),
+                new Item("Advanced UI", "ui.svg")
+                        .subMenu("Cropper")
+                        .subMenu("Owl Carousel")
+                        .subMenu("Sweet Alert"),
+                new Item("Forms", "forms.svg")
+                        .subMenu("Basic Elements")
+                        .subMenu("Advanced Elements")
+                        .subMenu("SEditors")
+                        .subMenu("Wizard"),
+                new Item.Label("OTHER"),
+                new Item("Charts", "chart.svg")
+                        .subMenu("Apex")
+                        .subMenu("Flot")
+                        .subMenu("Sparkline"),
+                new Item("Icons", "icon.svg")
+                        .subMenu("Feather Icons")
+                        .subMenu("Flag Icons")
+                        .subMenu("Mdi Icons"),
+                new Item("Special Pages", "page.svg")
+                        .subMenu("Blank page")
+                        .subMenu("Faq")
+                        .subMenu("Invoice")
+                        .subMenu("Profile")
+                        .subMenu("Pricing")
+                        .subMenu("Timeline")
         };
-        String icons[] = {
-                "dashboard.svg",
-                "email.svg",
-                "chat.svg",
-                "calendar.svg",
-                "ui.svg",
-                "forms.svg",
-                "chart.svg",
-                "icon.svg",
-                "page.svg",
-        };
+
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
             @Override
             public Icon buildMenuIcon(String path, float scale) {
@@ -102,23 +133,16 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         };
         simpleMenuOption.addMenuEvent(new MenuEvent() {
             @Override
-            public void selected(MenuAction action, int index, int subIndex) {
-                System.out.println("Drawer menu selected " + index + " " + subIndex);
+            public void selected(MenuAction action, int[] index) {
+                System.out.println("Drawer menu selected " + Arrays.toString(index));
             }
         });
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
             @Override
-            public void styleMenuItem(JButton menu, int index) {
+            public void styleMenuItem(JButton menu, int[] index) {
                 menu.putClientProperty(FlatClientProperties.STYLE, "" +
                         "[light]foreground:#FAFAFA;" +
-                        "arc:10");
-            }
-
-            @Override
-            public void styleSubMenuItem(JButton subMenu, int index, int subIndex) {
-                subMenu.putClientProperty(FlatClientProperties.STYLE, "" +
-                        "[light]foreground:#FAFAFA;" +
-                        "arc:10");
+                        "arc:0");
             }
 
             @Override
@@ -135,22 +159,26 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         });
 
+
         simpleMenuOption.setMenuValidation(new MenuValidation() {
             @Override
-            public boolean menuValidation(int index, int subIndex) {
-                if (index == 3) {
-                    return false;
-                } else if (index == 4 || index == 5) {
-                    return false;
-                } else {
-                    return true;
+            public boolean menuValidation(int[] index) {
+                if (index.length == 1) {
+                    // Hide Calendar
+                    if (index[0] == 3) {
+                        return false;
+                    }
+                } else if (index.length == 3) {
+                    //  Hide Read 4
+                    if (index[0] == 1 && index[1] == 1 && index[2] == 4) {
+                        return false;
+                    }
                 }
+                return true;
             }
         });
 
-
-        simpleMenuOption.setMenus(menus)
-                .setIcons(icons)
+        simpleMenuOption.setMenus(items)
                 .setBaseIconPath("icon")
                 .setIconScale(0.45f);
         return simpleMenuOption;

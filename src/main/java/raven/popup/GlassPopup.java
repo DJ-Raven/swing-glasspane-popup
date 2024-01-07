@@ -109,7 +109,7 @@ public class GlassPopup extends JComponent {
                 }
             }
         });
-        animator.setInterpolator(CubicBezierEasing.EASE_IN_OUT);
+        animator.setInterpolator(CubicBezierEasing.EASE);
     }
 
     public void setShowPopup(boolean show) {

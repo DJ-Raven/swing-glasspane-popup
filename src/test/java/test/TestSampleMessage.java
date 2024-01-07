@@ -32,12 +32,108 @@ public class TestSampleMessage extends JFrame {
                     "[light]foreground:lighten(@foreground,30%);" +
                     "[dark]foreground:darken(@foreground,30%)");
             txt.setEditable(false);
-            String actions[] = new String[]{"Cancel", "Ok"};
-            GlassPanePopup.showPopup(new SimplePopupBorder(txt, "Sample Message",new SimplePopupBorderOption().useScroll(), actions, (controller, action) -> {
-                controller.closePopup();
-            }));
+            String actions[] = new String[]{"Cancel", "Next"};
+            GlassPanePopup.showPopup(new SimplePopupBorder(txt, "Sample Message", new SimplePopupBorderOption().useScroll(), actions, (controller, action) -> {
+                if (action == 1) {
+                    String actions1[] = new String[]{"Back", "OK"};
+                    GlassPanePopup.push(new SimplePopupBorder(createSample(), "Test", new SimplePopupBorderOption().useScroll(),actions1, (controller1, action1) -> {
+                        if (action1 == 0) {
+                            GlassPanePopup.pop("pop");
+                        }
+                    }), "pop");
+                } else {
+                    controller.closePopup();
+                }
+            }), "pop");
         });
         add(cmd);
+    }
+
+    private Component createSample() {
+        JPanel panel = new JPanel(new MigLayout("fill", "fill", ""));
+        JTextPane txt = new JTextPane();
+        txt.setText("Apple\n" +
+                "Banana\n" +
+                "Orange\n" +
+                "Grapes\n" +
+                "Watermelon\n" +
+                "Pineapple\n" +
+                "Strawberry\n" +
+                "Blueberry\n" +
+                "Raspberry\n" +
+                "Mango\n" +
+                "Kiwi\n" +
+                "Papaya\n" +
+                "Peach\n" +
+                "Pear\n" +
+                "Plum\n" +
+                "Cherry\n" +
+                "Apricot\n" +
+                "Coconut\n" +
+                "Avocado\n" +
+                "Lemon\n" +
+                "Lime\n" +
+                "Grapefruit\n" +
+                "Cantaloupe\n" +
+                "Honeydew\n" +
+                "Fig\n" +
+                "Dates\n" +
+                "Pomegranate\n" +
+                "Cranberry\n" +
+                "Blackberry\n" +
+                "Goji berries\n" +
+                "Passionfruit\n" +
+                "Dragonfruit\n" +
+                "Starfruit\n" +
+                "Lychee\n" +
+                "Guava\n" +
+                "Persimmon\n" +
+                "Jackfruit\n" +
+                "Ackee\n" +
+                "Breadfruit\n" +
+                "Plantain\n" +
+                "Pine nuts\n" +
+                "Almonds\n" +
+                "Cashews\n" +
+                "Walnuts\n" +
+                "Pistachios\n" +
+                "Pecans\n" +
+                "Hazelnuts\n" +
+                "Macadamia nuts\n" +
+                "Chestnuts\n" +
+                "Brazil nuts\n" +
+                "Peanuts\n" +
+                "Sunflower seeds\n" +
+                "Pumpkin seeds\n" +
+                "Chia seeds\n" +
+                "Flaxseeds\n" +
+                "Sesame seeds\n" +
+                "Quinoa\n" +
+                "Bulgur\n" +
+                "Farro\n" +
+                "Barley\n" +
+                "Millet\n" +
+                "Buckwheat\n" +
+                "Oats\n" +
+                "Rice\n" +
+                "Couscous\n" +
+                "Wheatberries\n" +
+                "Spelt\n" +
+                "Teff\n" +
+                "Rye\n" +
+                "Corn\n" +
+                "Lentils\n" +
+                "Chickpeas\n" +
+                "Black beans\n" +
+                "Kidney beans\n" +
+                "Navy beans");
+        txt.putClientProperty(FlatClientProperties.STYLE, "" +
+                "border:10,25,10,25;" +
+                "[light]foreground:lighten(@foreground,30%);" +
+                "[dark]foreground:darken(@foreground,30%)");
+        txt.setEditable(false);
+        panel.add(txt);
+        return panel;
     }
 
     public static void main(String[] args) {
