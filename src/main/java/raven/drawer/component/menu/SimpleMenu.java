@@ -229,8 +229,12 @@ public class SimpleMenu extends JPanel {
             setLayout(menuLayout);
             // Use opaque true on the first submenu panel to fix g2d draw arrow line
             setOpaque(menuLevel == 0);
-            putClientProperty(FlatClientProperties.STYLE, "" +
+            if (simpleMenuOption.simpleMenuStyle != null) {
+                simpleMenuOption.simpleMenuStyle.styleMenuPanel(this, copyArray(this.index));
+            }
+            FlatLafStyleUtils.appendStyleIfAbsent(FlatClientProperties.STYLE, "" +
                     "background:null");
+
             iconWidth = 22;
             int index = 0;
             int validationIndex = -1;

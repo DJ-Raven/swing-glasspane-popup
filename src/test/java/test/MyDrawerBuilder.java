@@ -139,7 +139,13 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         });
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
             @Override
+            public void styleMenuPanel(JPanel panel, int[] index) {
+                // style submenu panel here
+            }
+
+            @Override
             public void styleMenuItem(JButton menu, int[] index) {
+                menu.setContentAreaFilled(false);
                 menu.putClientProperty(FlatClientProperties.STYLE, "" +
                         "[light]foreground:#FAFAFA;" +
                         "arc:0");
