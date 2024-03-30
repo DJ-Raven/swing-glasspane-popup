@@ -386,6 +386,7 @@ public class SimpleMenu extends JPanel {
             p.lineTo(arrowWidth / 2, (1f - animate) * arrowHeight);
             p.lineTo(arrowWidth, animate * arrowHeight);
             g2.translate(x, y);
+            g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
             g2.draw(p);
         }
 

@@ -13,7 +13,6 @@ import java.awt.*;
 public class Demo extends JFrame {
 
     public Demo() {
-        applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         GlassPanePopup.install(this);
         MyDrawerBuilder myDrawerBuilder = new MyDrawerBuilder();
         Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
