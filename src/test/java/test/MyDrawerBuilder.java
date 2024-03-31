@@ -141,14 +141,21 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             @Override
             public void styleMenuPanel(JPanel panel, int[] index) {
                 // style submenu panel here
+                panel.putClientProperty(FlatClientProperties.STYLE, "" +
+                        "background:$Drawer.background");
             }
 
             @Override
             public void styleMenuItem(JButton menu, int[] index) {
+                menu.putClientProperty(FlatClientProperties.STYLE, "" +
+                        "[light]foreground:#f8fafc;" +
+                        "[dark]foreground:@foreground");
             }
 
             @Override
             public void styleMenu(JComponent component) {
+                component.putClientProperty(FlatClientProperties.STYLE, "" +
+                        "background:$Drawer.background");
             }
 
             @Override
