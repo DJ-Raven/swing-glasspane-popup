@@ -52,15 +52,19 @@ GlassPanePopup.install(jframe);
 //  Show glasspane popup
 
 String action[] = {"Cancel", "OK"};
-GlassPanePopup.showPopup(new SimplePopupBorder(component, "Sample Message", action, new PopupCallbackAction() {
-    @Override
-    public void action(PopupController controller, int action) {
-        if (action == 0) {
-            //  action cancel
-        } else if (action == 1) {
-            //  action ok
+GlassPanePopup.showPopup(new SimplePopupBorder(
+    component,
+    "Sample Message",
+    action,
+    new PopupCallbackAction() {
+        @Override
+        public void action(PopupController controller, int action) {
+            if (action == 0) {
+                //  action cancel
+            } else if (action == 1) {
+                //  action ok
+            }
         }
-    }
 }));
 ```
 
