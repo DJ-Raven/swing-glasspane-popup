@@ -138,12 +138,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             }
         });
         simpleMenuOption.setMenuStyle(new SimpleMenuStyle() {
-            @Override
-            public void styleMenuPanel(JPanel panel, int[] index) {
-                // style submenu panel here
-                panel.putClientProperty(FlatClientProperties.STYLE, "" +
-                        "background:$Drawer.background");
-            }
 
             @Override
             public void styleMenuItem(JButton menu, int[] index) {
