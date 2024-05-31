@@ -1,6 +1,5 @@
 package raven.drawer.component.menu;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.ColorFunctions;
 import com.formdev.flatlaf.util.UIScale;
@@ -232,7 +231,7 @@ public class SimpleMenu extends JPanel {
             if (simpleMenuOption.simpleMenuStyle != null) {
                 simpleMenuOption.simpleMenuStyle.styleMenuPanel(this, copyArray(this.index));
             }
-            FlatLafStyleUtils.appendStyleIfAbsent(FlatClientProperties.STYLE, "" +
+            FlatLafStyleUtils.appendStyleIfAbsent(this, "" +
                     "background:null");
 
             iconWidth = 22;
